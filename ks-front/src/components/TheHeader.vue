@@ -12,12 +12,12 @@
 </template>
 
 <script setup lang="ts">
-// import { useAuthStore } from '@/store/authStore'
+import { useAuthStore } from '@/store/authStore'
 
-// const authStore = useAuthStore()
+const authStore = useAuthStore()
 
 const logout = () => {
-  // authStore.logout()
+  authStore.logout()
 }
 </script>
 
