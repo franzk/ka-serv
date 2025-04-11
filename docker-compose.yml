@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   keycloak-db:
-    image: postgres:16
+    image: postgres:17
     container_name: kaserv-keycloak-db
     environment:
       POSTGRES_DB: keycloak
@@ -12,9 +12,9 @@ services:
       - keycloak_pgdata:/var/lib/postgresql/data
 
   keycloak:
-    image: quay.io/keycloak/keycloak:24.0
+    image: quay.io/keycloak/keycloak:26.1
     container_name: kaserv-keycloak
-    command: "start-dev"
+    command: ["start-dev", "--import-realm"]
     environment:
       KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN}
       KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
@@ -27,7 +27,7 @@ services:
     depends_on:
       - keycloak-db
     volumes:
-      - ./infra/keycloak/realm-export.json:/opt/keycloak/data/import/realm-export.json:ro
+      - ./infra/keycloak/:/opt/keycloak/data/import
 
 volumes:
   keycloak_pgdata:
