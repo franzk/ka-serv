@@ -1,7 +1,11 @@
 <template>
-  <section>
-    <h3>ME</h3>
-  </section>
+  <p>>> Ici placer les données ME de l'api <<</p>
 </template>
 
-<script setup lang="ts"></script>
+<style scoped lang="scss">
+p {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+</style>
