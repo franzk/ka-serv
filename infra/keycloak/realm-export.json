@@ -73,7 +73,8 @@
         "composites": {
           "realm": [
             "offline_access",
-            "uma_authorization"
+            "uma_authorization",
+            "user"
           ],
           "client": {
             "account": [
@@ -82,6 +83,15 @@
             ]
           }
         },
+        "clientRole": false,
+        "containerId": "3402b0e2-60a4-433f-a1ad-135b271b3034",
+        "attributes": {}
+      },
+      {
+        "id": "a07c1e2b-4ea1-4c9c-9502-a340f9a6aecb",
+        "name": "user",
+        "description": "KAServ User",
+        "composite": false,
         "clientRole": false,
         "containerId": "3402b0e2-60a4-433f-a1ad-135b271b3034",
         "attributes": {}
