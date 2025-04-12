@@ -1,13 +1,23 @@
 <template>
-  <p>>> Ici placer l'appel à l'API pour récupérer les données <<</p>
+  <div>{{ something }}</div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import api from '@/config/axios'
+import { ref } from 'vue'
+
+const something = ref('Loading...')
+
+api
+  .get('/something')
+  .then((response) => (something.value = response.data))
+  .catch((error) => (something.value = 'Error fetching data:' + error))
+</script>
 
 <style scoped lang="scss">
-p {
+div {
   flex: 1;
-  display: flex;
   justify-content: center;
+  overflow-wrap: break-word;
 }
 </style>

@@ -1,11 +1,23 @@
 <template>
-  <p>>> Ici placer les données ME de l'api <<</p>
+  <div>{{ me }}</div>
 </template>
 
+<script setup lang="ts">
+import api from '@/config/axios'
+import { ref } from 'vue'
+
+const me = ref('Loading...')
+
+api
+  .get('/me')
+  .then((response) => (me.value = response.data))
+  .catch((error) => (me.value = 'Error fetching data:' + error))
+</script>
+
 <style scoped lang="scss">
-p {
+div {
   flex: 1;
-  display: flex;
   justify-content: center;
+  overflow-wrap: break-word;
 }
 </style>

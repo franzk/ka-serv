@@ -1,0 +1,11 @@
+spring:
+  application:
+        name: kaserv-springback
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: "http://localhost:5028/realms/kaserv"
+
+server:
+  port: 5027
