@@ -1,16 +1,16 @@
 # ka-serv
 
-A full-stack POC using Keycloak authentication.
+A full-stack proof of concept (POC) featuring user authentication via Keycloak.
 
 This project includes:
 
-- a Vue 3 frontend (`/frontend`)
-- a Spring Boot backend (`/backend`)
+- a Vue 3 frontend (`/ks-front`)
+- a Spring Boot backend (`/ks-back`)
 - a Keycloak instance with a PostgreSQL database (via Docker)
 
 ---
 
-## 🔧 Prerequisites
+## Prerequisites
 
 - Docker & Docker Compose
 - Node.js ≥ 18 with `pnpm`
@@ -18,32 +18,18 @@ This project includes:
 
 ---
 
-## ⚙️ Environment Configuration (`.env`)
-
-All configuration variables are centralized in a single `.env` file at the root of the project.
-
-### Steps
-
-1. Duplicate the example file:
-
-   ```bash
-   cp .env.example .env
-
-   ```
-
-2. Edit values as needed (e.g. ports, admin credentials, etc.)
-
----
-
-## ▶️ How to Run the Project
+## ▶ Running the Project in Local Environment
 
 ### 1. Start the infrastructure (Keycloak + DB)
 
 ```bash
-docker-compose --env-file up
+cd dev
+docker-compose up
 ```
 
-### 2. Run the Frontend (Vue 3)
+This will spin up Keycloak and the associated PostgreSQL database.
+
+### 2. Start the Frontend (Vue 3)
 
 ```bash
 cd ks-front
@@ -51,13 +37,37 @@ pnpm install
 pnpm run dev
 ```
 
-### 3. Run the Backend (Spring Boot + Gradle)
+Available at http://localhost:5173
+
+### 3. Start the Backend (Spring Boot + Gradle)
 
 ```bash
-cd backend
+cd ks-back
 ./gradlew bootRun
 ```
+
+Backend is exposed at http://localhost:5027
 
 ### 4. Check it
 
 Visit: http://localhost:5173
+
+---
+
+## ▶ Deploying the Project in Production
+
+### 1. Configure Environment Variables (.env)
+
+All environment-specific values (ports, credentials, realm names, etc.) are centralized in a single .env file.
+
+```bash
+cp .env.example .env
+```
+
+Edit it to suit your deployment settings.
+
+### 2. Launch Production Stack
+
+```bash
+docker compose up
+```

@@ -1,6 +1,19 @@
-version: "3.9"
-
 services:
+  # =====================
+  # FRONT (Vue.js + Nginx)
+  # =====================
+  frontend:
+    build:
+      context: ./ks-front
+    container_name: kaserv-frontend
+    ports:
+      - "${FRONT_PORT}:443"
+    networks:
+      - nginx_proxy
+
+  # =====================
+  # KEYCLOAK (Java + Postgres)
+  # =====================
   keycloak-db:
     image: postgres:17
     container_name: kaserv-keycloak-db
@@ -10,6 +23,8 @@ services:
       POSTGRES_PASSWORD: keycloak
     volumes:
       - keycloak_pgdata:/var/lib/postgresql/data
+    networks:
+      - nginx_proxy
 
   keycloak:
     image: quay.io/keycloak/keycloak:26.1
@@ -22,12 +37,45 @@ services:
       KC_DB_URL: jdbc:postgresql://keycloak-db:5432/keycloak
       KC_DB_USERNAME: keycloak
       KC_DB_PASSWORD: keycloak
-    ports:
-      - "${KEYCLOAK_PORT}:8080"
-    depends_on:
-      - keycloak-db
+      KC_HOSTNAME_URL: https://auth.ka.franzka.net
+      KC_HOSTNAME_ADMIN_URL: https://auth.ka.franzka.net
     volumes:
       - ./infra/keycloak/:/opt/keycloak/data/import
+    depends_on:
+      - keycloak-db
+    networks:
+      - nginx_proxy
+
+  nginx-auth:
+    image: nginx:stable-alpine
+    container_name: kaserv-nginx-auth
+    volumes:
+      - ./infra/keycloak/nginx.conf:/etc/nginx/conf.d/auth.conf:ro
+    depends_on:
+      - keycloak
+    ports:
+      - "${KEYCLOAK_PORT}:443"
+    networks:
+      - nginx_proxy
+
+  # =====================
+  # BACKEND (Spring Boot)
+  # =====================
+  backend:
+    build:
+      context: ./ks-back
+    container_name: kaserv-backend
+    environment:
+      SPRING_APPLICATION_NAME: kaserv-springback
+      KEYCLOAK_ISSUER: https://auth.ka.franzka.net/realms/kaserv
+    ports:
+      - "${BACK_PORT}:5027"
+    networks:
+      - nginx_proxy
 
 volumes:
   keycloak_pgdata:
+
+networks:
+  nginx_proxy:
+    external: true
