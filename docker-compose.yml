@@ -51,6 +51,7 @@ services:
       - keycloak-db
     networks:
       - ka-serv-network
+      - ka-proxy-network
 
   nginx-auth:
     image: nginx:stable-alpine
@@ -74,7 +75,7 @@ services:
     container_name: kaserv-backend
     environment:
       SPRING_APPLICATION_NAME: kaserv-springback
-      KEYCLOAK_ISSUER: https://ka-auth.franzka.net/realms/kaserv
+      KEYCLOAK_ISSUER: http://keycloak:8080/realms/kaserv
     ports:
       - "${BACK_PORT}:5027"
     networks:
