@@ -2,8 +2,8 @@ import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import Keycloak from 'keycloak-js'
 import keycloakConfig from '@/config/keycloak-config'
-import type { Me } from '@/domain/me'
 import { MeService } from '@/service/me.service'
+import type { Me } from '@/domain/Me'
 
 const keycloak = new Keycloak(keycloakConfig)
 

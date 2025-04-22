@@ -1,5 +1,5 @@
 import api from '@/config/axios'
-import type { Me } from '@/domain/me'
+import type { Me } from '@/domain/Me'
 
 export class MeService {
   static async getMe(): Promise<Me> {
