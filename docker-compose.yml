@@ -7,7 +7,8 @@ services:
       context: ./ks-front
     container_name: kaserv-frontend
     networks:
-      - nginx_proxy
+      - ka-serv-network
+      - ka-proxy-network
 
   # =====================
   # KEYCLOAK (Java + Postgres)
@@ -22,7 +23,7 @@ services:
     volumes:
       - keycloak_pgdata:/var/lib/postgresql/data
     networks:
-      - nginx_proxy
+      - ka-serv-network
 
   keycloak:
     image: quay.io/keycloak/keycloak:26.1
@@ -49,7 +50,7 @@ services:
     depends_on:
       - keycloak-db
     networks:
-      - nginx_proxy
+      - ka-serv-network
 
   nginx-auth:
     image: nginx:stable-alpine
@@ -61,7 +62,8 @@ services:
     ports:
       - "${KEYCLOAK_PORT}:80"
     networks:
-      - nginx_proxy
+      - ka-serv-network
+      - ka-proxy-network
 
   # =====================
   # BACKEND (Spring Boot)
@@ -76,11 +78,13 @@ services:
     ports:
       - "${BACK_PORT}:5027"
     networks:
-      - nginx_proxy
+      - ka-serv-network
+      - ka-proxy-network
 
 volumes:
   keycloak_pgdata:
 
 networks:
+  ka-serv-network:
   ka-proxy-network:
     external: true
