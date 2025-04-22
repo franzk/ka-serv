@@ -2,12 +2,15 @@ import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import Keycloak from 'keycloak-js'
 import keycloakConfig from '@/config/keycloak-config'
+import type { Me } from '@/domain/me'
+import { MeService } from '@/service/me.service'
 
 const keycloak = new Keycloak(keycloakConfig)
 
 export const useAuthStore = defineStore('auth', () => {
   const isAuthenticated = ref<boolean>(false)
   const token = ref<string | null>(null)
+  const me = ref<Me>()
 
   const initKeycloak = async () => {
     try {
@@ -19,6 +22,7 @@ export const useAuthStore = defineStore('auth', () => {
       if (authenticated) {
         isAuthenticated.value = true
         token.value = keycloak.token || null
+        me.value = await MeService.getMe()
         setupTokenRefresh()
       } else {
         isAuthenticated.value = false
@@ -26,14 +30,6 @@ export const useAuthStore = defineStore('auth', () => {
       }
     } catch (error) {
       console.error('Failed to initialize Keycloak', error)
-    }
-  }
-
-  const login = async () => {
-    try {
-      await keycloak.login()
-    } catch (error) {
-      console.error('Failed to login', error)
     }
   }
 
@@ -67,8 +63,8 @@ export const useAuthStore = defineStore('auth', () => {
   return {
     isAuthenticated,
     token,
+    me,
     initKeycloak,
-    login,
     logout,
     checkAuthentication,
   }

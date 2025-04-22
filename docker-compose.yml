@@ -6,8 +6,6 @@ services:
     build:
       context: ./ks-front
     container_name: kaserv-frontend
-    ports:
-      - "${FRONT_PORT}:443"
     networks:
       - nginx_proxy
 
@@ -29,7 +27,16 @@ services:
   keycloak:
     image: quay.io/keycloak/keycloak:26.1
     container_name: kaserv-keycloak
-    command: ["start-dev", "--import-realm"]
+    command:
+      [
+        "start",
+        "--import-realm",
+        "--http-enabled=true",
+        "--http-port=8080",
+        "--proxy-headers=xforwarded",
+        "--hostname=https://ka-auth.franzka.net",
+        "--hostname-admin=https://ka-auth.franzka.net",
+      ]
     environment:
       KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN}
       KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
@@ -37,8 +44,6 @@ services:
       KC_DB_URL: jdbc:postgresql://keycloak-db:5432/keycloak
       KC_DB_USERNAME: keycloak
       KC_DB_PASSWORD: keycloak
-      KC_HOSTNAME_URL: https://auth.ka.franzka.net
-      KC_HOSTNAME_ADMIN_URL: https://auth.ka.franzka.net
     volumes:
       - ./infra/keycloak/:/opt/keycloak/data/import
     depends_on:
@@ -54,7 +59,7 @@ services:
     depends_on:
       - keycloak
     ports:
-      - "${KEYCLOAK_PORT}:443"
+      - "${KEYCLOAK_PORT}:80"
     networks:
       - nginx_proxy
 
@@ -67,7 +72,7 @@ services:
     container_name: kaserv-backend
     environment:
       SPRING_APPLICATION_NAME: kaserv-springback
-      KEYCLOAK_ISSUER: https://auth.ka.franzka.net/realms/kaserv
+      KEYCLOAK_ISSUER: https://ka-auth.franzka.net/realms/kaserv
     ports:
       - "${BACK_PORT}:5027"
     networks:
@@ -77,5 +82,5 @@ volumes:
   keycloak_pgdata:
 
 networks:
-  nginx_proxy:
+  ka-proxy-network:
     external: true

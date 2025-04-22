@@ -1,8 +1,9 @@
-# === Dockerfile pour le FRONT (Vue.js + Nginx) ===
+# === Dockerfile for FRONT (Vue.js + Nginx) ===
 # ks-front/Dockerfile
 FROM node:23-slim AS build
 WORKDIR /app
 COPY . .
+COPY .env.production .env
 RUN npm install && npm run build
 
 FROM nginx:1.27-alpine-slim

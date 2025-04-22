@@ -25,7 +25,7 @@ services:
     depends_on:
       - keycloak-db
     volumes:
-      - ./infra/keycloak/:/opt/keycloak/data/import
+      - ../infra/keycloak/:/opt/keycloak/data/import
 
 volumes:
   keycloak_pgdata:

@@ -6,6 +6,9 @@ RUN gradle build --no-daemon -x test
 
 FROM openjdk:21-jdk-slim
 WORKDIR /app
+
+RUN apt-get update && apt-get install -y ca-certificates && rm -rf /var/lib/apt/lists/*
+
 COPY --from=build /app/build/libs/*.jar ./app.jar
 
 EXPOSE 5027
