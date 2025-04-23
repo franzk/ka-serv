@@ -1,6 +1,6 @@
 <template>
   <header class="app-header">
-    <h2 @click="goHome">KA Serv ⚙️</h2>
+    <h2 @click="goHome">KA Serv</h2>
     <div class="user-info">
       <span class="user-name"
         ><RouterLink to="/me">👤 {{ authStore.me?.name }}</RouterLink></span
