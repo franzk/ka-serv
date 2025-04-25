@@ -26,8 +26,7 @@ services:
       - ka-serv-network
 
   keycloak:
-    image: quay.io/keycloak/keycloak:26.1
-    container_name: kaserv-keycloak
+    build: ./keycloak
     command:
       [
         "start",

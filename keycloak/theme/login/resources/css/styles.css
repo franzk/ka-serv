@@ -1,0 +1,110 @@
+/* Style de base pour le formulaire */
+#kc-form-login {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #333;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    font-family: Arial, sans-serif;
+    color: #fff;
+}
+
+/* Style pour les labels */
+#kc-form-login label {
+    font-weight: bold;
+    margin-bottom: 8px;
+    display: block;
+    color: #fff;
+}
+
+/* Style pour les champs de texte */
+#kc-form-login input[type="text"],
+#kc-form-login input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #555;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: #444;
+    color: #fff;
+    box-sizing: border-box;
+    transition: border-color 0.3s, background-color 0.3s;
+}
+
+#kc-form-login input[type="text"]:focus,
+#kc-form-login input[type="password"]:focus {
+    border-color: #007bff;
+    background-color: #555;
+    outline: none;
+}
+
+/* Style pour le bouton de soumission */
+#kc-form-login input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#kc-form-login input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* Style pour le bouton "Show password" */
+#kc-form-login button[type="button"] {
+    background: none;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px;
+    color: #007bff;
+    padding: 0;
+}
+
+#kc-form-login button[type="button"]:hover {
+    color: #0056b3;
+}
+
+/* Style pour les icônes (ajuster selon vos préférences) */
+#kc-form-login i {
+    font-size: 18px;
+}
+
+/* Style pour l'alignement des éléments à l'intérieur du formulaire */
+#kc-form-login . {
+    position: relative;
+}
+
+#kc-form-options,
+#kc-form-buttons {
+    text-align: center;
+}
+
+#kc-page-title {
+    color: white;
+    text-align: center;
+}
+
+/* Style de fond pour la page */
+body {
+    background-color: #000;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.login-title { 
+    color: white;
+    text-align: center;
+    border: 1px solid white;
+    background-color: #333;
+}
