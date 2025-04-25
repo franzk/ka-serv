@@ -27,6 +27,7 @@ services:
 
   keycloak:
     build: ./keycloak
+    container_name: kaserv-keycloak
     command:
       [
         "start",
