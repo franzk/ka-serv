@@ -1,110 +1,170 @@
 /* Style de base pour le formulaire */
+#kc-content {
+	width: 500px;
+	margin: 0 auto;
+	padding: 20px;
+	background-color: #aaaaaa33;
+	color: #fff;
+	border-radius: 10px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
 #kc-form-login {
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #333;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    font-family: Arial, sans-serif;
-    color: #fff;
+	font-family: Arial, sans-serif;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+a {
+	color: #fff;
 }
 
 /* Style pour les labels */
 #kc-form-login label {
-    font-weight: bold;
-    margin-bottom: 8px;
-    display: block;
-    color: #fff;
+	font-weight: bold;
+	margin-bottom: 8px;
+	display: block;
+	color: #fff;
 }
 
 /* Style pour les champs de texte */
 #kc-form-login input[type="text"],
 #kc-form-login input[type="password"] {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #555;
-    border-radius: 5px;
-    font-size: 16px;
-    background-color: #444;
-    color: #fff;
-    box-sizing: border-box;
-    transition: border-color 0.3s, background-color 0.3s;
+	width: 100%;
+	padding: 10px;
+	margin-bottom: 15px;
+	border: 1px solid #555;
+	border-radius: 5px;
+	font-size: 16px;
+	background-color: #444;
+	color: #fff;
+	box-sizing: border-box;
+	transition: border-color 0.3s, background-color 0.3s;
 }
 
 #kc-form-login input[type="text"]:focus,
 #kc-form-login input[type="password"]:focus {
-    border-color: #007bff;
-    background-color: #555;
-    outline: none;
+	border-color: #007bff;
+	background-color: #555;
+	outline: none;
 }
 
 /* Style pour le bouton de soumission */
 #kc-form-login input[type="submit"] {
-    width: 100%;
-    padding: 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+	width: 100%;
+	padding: 10px;
+	background-color: #007bff;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	font-size: 16px;
+	cursor: pointer;
+	transition: background-color 0.3s;
 }
 
 #kc-form-login input[type="submit"]:hover {
-    background-color: #0056b3;
+	background-color: #0056b3;
 }
 
 /* Style pour le bouton "Show password" */
 #kc-form-login button[type="button"] {
-    background: none;
-    border: none;
-    cursor: pointer;
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 16px;
-    color: #007bff;
-    padding: 0;
+	background: none;
+	border: none;
+	cursor: pointer;
+	position: absolute;
+	right: 10px;
+	top: 50%;
+	transform: translateY(-50%);
+	font-size: 16px;
+	color: #007bff;
+	padding: 0;
 }
 
 #kc-form-login button[type="button"]:hover {
-    color: #0056b3;
+	color: #0056b3;
 }
 
 /* Style pour les icônes (ajuster selon vos préférences) */
 #kc-form-login i {
-    font-size: 18px;
+	font-size: 18px;
 }
 
 /* Style pour l'alignement des éléments à l'intérieur du formulaire */
 #kc-form-login . {
-    position: relative;
+	position: relative;
 }
 
 #kc-form-options,
 #kc-form-buttons {
-    text-align: center;
+	text-align: center;
 }
 
 #kc-page-title {
-    color: white;
-    text-align: center;
+	color: white;
+	text-align: center;
+}
+
+#kc-info {
+	text-align: center;
+	margin-top: 20px;
 }
 
 /* Style de fond pour la page */
 body {
-    background-color: #000;
-    margin: 0;
-    font-family: Arial, sans-serif;
+	background-color: #242424;
+	margin: 0;
+	font-family: Arial, sans-serif;
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
 }
 
-.login-title { 
-    color: white;
-    text-align: center;
-    border: 1px solid white;
-    background-color: #333;
+.main-content {
+	flex: 1;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: url("../images/bg.jpg") no-repeat center center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+/*.login-title {
+	color: white;
+	text-align: center;
+	border: 1px solid white;
+	background-color: #333;
+}*/
+
+.app-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background-color: #1e1e2f;
+	padding: 1rem 2rem;
+	border-bottom: 1px solid #2a2a3b;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+	color: #f1f1f1;
+	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.app-header h1 {
+	cursor: pointer;
+	font-size: 1.4rem;
+	color: #66d9ef;
+	transition: color 0.2s ease;
+	display: block;
+	margin-block-start: 0.83em;
+	margin-block-end: 0.83em;
+	margin-inline-start: 0px;
+	margin-inline-end: 0px;
+	font-weight: bold;
+	unicode-bidi: isolate;
+}
+
+.app-header h1:hover {
+	color: #a6e3e9;
 }

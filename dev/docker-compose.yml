@@ -25,6 +25,7 @@ services:
       - keycloak-db
     volumes:
       - ../keycloak/:/opt/keycloak/data/import
+      - ../keycloak/theme:/opt/keycloak/themes/ka-theme
 
 volumes:
   keycloak_pgdata:

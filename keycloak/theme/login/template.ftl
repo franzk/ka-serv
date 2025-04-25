@@ -12,7 +12,7 @@
             <meta name="${meta?split('==')[0]}" content="${meta?split('==')[1]}"/>
         </#list>
     </#if>
-    <title>Keycloak vuejs simple login</title>
+    <title>KA</title>
     <link rel="icon" href="${url.resourcesPath}/img/favicon.ico" />
     <#if properties.stylesCommon?has_content>
         <#list properties.stylesCommon?split(' ') as style>
@@ -52,10 +52,10 @@
 </head>
 
 <body class="${properties.kcBodyClass!}">
-<header class="login-title">
-    <h1>Keycloak vuejs simple login</h1>
+<header class="login-title app-header">
+    <h1>KA</h1>
 </header>
-<div class="${properties.kcLoginClass!}">
+<div class="${properties.kcLoginClass!} main-content">
     <div class="${properties.kcFormCardClass!}">
         <header class="${properties.kcFormHeaderClass!}">
             <#if realm.internationalizationEnabled  && locale.supported?size gt 1>
