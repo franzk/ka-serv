@@ -29,6 +29,13 @@ a {
 	color: #fff;
 }
 
+#input-error {
+	color: #ff0000;
+	font-weight: 500;
+	//font-size: 14px;
+	//margin-top: 5px;
+}
+
 /* Style pour les champs de texte */
 #kc-form-login input[type="text"],
 #kc-form-login input[type="password"] {
