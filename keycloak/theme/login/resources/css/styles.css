@@ -12,10 +12,12 @@
 
 .card-pf {
 	background-color: transparent;
+	box-shadow: none;
 }
 
 #kc-form-login,
-#kc-register-form {
+#kc-register-form,
+#kc-reset-password-form {
 	font-family: Arial, sans-serif;
 	display: flex;
 	flex-direction: column;
@@ -28,7 +30,8 @@ a {
 
 /* Style pour les labels */
 #kc-form-login label,
-#kc-register-form label {
+#kc-register-form label,
+#kc-reset-password-form label {
 	font-weight: bold;
 	margin-bottom: 8px;
 	color: #fff;
@@ -44,7 +47,9 @@ a {
 #kc-form-login input[type="text"],
 #kc-form-login input[type="password"],
 #kc-register-form input[type="text"],
-#kc-register-form input[type="password"] {
+#kc-register-form input[type="password"],
+#kc-reset-password-form input[type="text"],
+#kc-reset-password-form input[type="password"] {
 	width: 100%;
 	padding: 10px;
 	// margin-bottom: 15px;
@@ -60,7 +65,9 @@ a {
 #kc-form-login input[type="text"]:focus,
 #kc-form-login input[type="password"]:focus,
 #kc-register-login input[type="text"]:focus,
-#kc-register-login input[type="password"]:focus {
+#kc-register-login input[type="password"]:focus,
+#kc-reset-password-form input[type="text"]:focus,
+#kc-reset-password-form input[type="password"]:focus {
 	border-color: #007bff;
 	background-color: #555;
 	outline: none;
@@ -68,7 +75,8 @@ a {
 
 /* Style pour le bouton de soumission */
 #kc-form-login input[type="submit"],
-#kc-register-form input[type="submit"] {
+#kc-register-form input[type="submit"],
+#kc-reset-password-form input[type="submit"] {
 	width: 100%;
 	padding: 10px;
 	background-color: #007bff;
@@ -81,13 +89,15 @@ a {
 }
 
 #kc-form-login input[type="submit"]:hover,
-#kc-register-form input[type="submit"]:hover {
+#kc-register-form input[type="submit"]:hover,
+#kc-reset-password-form input[type="submit"]:hover {
 	background-color: #0056b3;
 }
 
 /* Style pour le bouton "Show password" */
 #kc-form-login button[type="button"],
-#kc-register-form button[type="button"] {
+#kc-register-form button[type="button"],
+#kc-reset-password-form button[type="button"] {
 	background: none;
 	border: none;
 	cursor: pointer;
@@ -101,19 +111,22 @@ a {
 }
 
 #kc-form-login button[type="button"]:hover,
-#kc-register-form button[type="button"]:hover {
+#kc-register-form button[type="button"]:hover,
+#kc-reset-password-form button[type="button"]:hover {
 	color: #0056b3;
 }
 
 /* Style pour les icônes */
 #kc-form-login i,
-#kc-register-form i {
+#kc-register-form i,
+#kc-reset-password-form i {
 	font-size: 18px;
 }
 
 /* Style pour l'alignement des éléments à l'intérieur du formulaire */
 #kc-form-login .,
-#kc-register-form . {
+#kc-register-form .,
+#kc-reset-password-form . {
 	position: relative;
 }
 
@@ -135,7 +148,7 @@ a {
 
 #kc-info {
 	text-align: center;
-	margin-top: 20px;
+	// margin-top: 20px;
 }
 
 /* Style de fond pour la page */
@@ -207,7 +220,7 @@ body {
 }
 
 .login-pf-page .login-pf-settings {
-	display: none;
+	font-size: 15px;
 }
 
 .pf-c-form-control:not(textarea) {
@@ -217,4 +230,8 @@ body {
 .pf-c-form-control[aria-invalid="true"] {
 	border: 1px solid red !important;
 	background: none;
+}
+
+.login-pf-page .login-pf-signup {
+	margin: 0;
 }
