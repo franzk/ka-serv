@@ -10,8 +10,7 @@ services:
       - keycloak_pgdata:/var/lib/postgresql/data
 
   keycloak:
-    image: quay.io/keycloak/keycloak:26.1
-    container_name: kaserv-keycloak
+    build: ../keycloak
     command: ["start-dev", "--import-realm"]
     environment:
       KEYCLOAK_ADMIN: admin
@@ -26,6 +25,7 @@ services:
       - keycloak-db
     volumes:
       - ../keycloak/:/opt/keycloak/data/import
+      - ../keycloak/theme:/opt/keycloak/themes/ka-theme
 
 volumes:
   keycloak_pgdata:
