@@ -10,6 +10,10 @@
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
+.card-pf {
+	background-color: transparent;
+}
+
 #kc-form-login,
 #kc-register-form {
 	font-family: Arial, sans-serif;
@@ -27,15 +31,12 @@ a {
 #kc-register-form label {
 	font-weight: bold;
 	margin-bottom: 8px;
-	// display: block;
 	color: #fff;
 }
 
 #input-error {
 	color: #ff0000;
 	font-weight: 500;
-	//font-size: 14px;
-	//margin-top: 5px;
 }
 
 /* Style pour les champs de texte */
@@ -49,7 +50,7 @@ a {
 	border: 1px solid #555;
 	border-radius: 5px;
 	font-size: 16px;
-	background-color: #444;
+	background-color: #ffffff33;
 	color: #fff;
 	box-sizing: border-box;
 	transition: border-color 0.3s, background-color 0.3s;
@@ -90,12 +91,12 @@ a {
 	border: none;
 	cursor: pointer;
 	position: absolute;
-	right: 10px;
-	top: 50%;
+	right: 0.3rem;
+	top: 1.1rem;
 	transform: translateY(-50%);
 	font-size: 16px;
 	color: #007bff;
-	padding: 0;
+	padding: 0.2rem 0.4rem;
 }
 
 #kc-form-login button[type="button"]:hover,
@@ -192,4 +193,13 @@ body {
 
 .app-header h1:hover {
 	color: #a6e3e9;
+}
+
+.pf-c-input-group {
+	position: relative;
+	background: transparent;
+}
+
+.login-pf-page .login-pf-settings {
+	display: none;
 }
