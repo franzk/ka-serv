@@ -8,6 +8,8 @@ services:
       POSTGRES_PASSWORD: keycloak
     volumes:
       - keycloak_pgdata:/var/lib/postgresql/data
+    networks:
+      - kaserv-dev-net
 
   keycloak:
     build: ../keycloak
@@ -26,6 +28,21 @@ services:
     volumes:
       - ../keycloak/:/opt/keycloak/data/import
       - ../keycloak/theme:/opt/keycloak/themes/ka-theme
+    networks:
+      - kaserv-dev-net
+
+  mailhog:
+    image: mailhog/mailhog:v1.0.1
+    container_name: kaserv-mailhog
+    ports:
+      - "1025:1025" # SMTP
+      - "5125:8025" # Web UI
+    networks:
+      - kaserv-dev-net
+
+networks:
+  kaserv-dev-net:
+    driver: bridge
 
 volumes:
   keycloak_pgdata:
