@@ -236,3 +236,66 @@ body {
 .login-pf-page .login-pf-signup {
 	margin: 0;
 }
+
+/* --- Vérification du courriel --- */
+
+.login-pf-page .card-pf {
+	background-color: transparent;
+	box-shadow: none;
+	padding: 20px;
+	border-radius: 10px;
+}
+
+.login-pf-page .card-pf * {
+	color: #fff !important;
+}
+
+.login-pf-header h2#kc-page-title {
+	color: white;
+	font-size: 1.8rem;
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+.pf-c-alert {
+	display: flex;
+	align-items: center;
+	background-color: #ffaa0033;
+	border-left: 4px solid #ffaa00;
+	color: #fff;
+	padding: 10px;
+	border-radius: 5px;
+	margin-bottom: 20px;
+}
+
+.pf-c-alert__icon {
+	margin-right: 10px;
+	font-size: 1.5rem;
+	color: #ffaa00;
+}
+
+.kc-feedback-text {
+	font-weight: bold;
+}
+
+.instruction {
+	color: #fff;
+	font-size: 1rem;
+	text-align: center;
+	margin-bottom: 15px;
+}
+
+.login-pf-signup {
+	text-align: center;
+	color: #fff;
+	font-size: 0.95rem;
+}
+
+.login-pf-signup a {
+	color: white;
+	text-decoration: underline;
+}
+
+.login-pf-signup a:hover {
+	color: white;
+}
