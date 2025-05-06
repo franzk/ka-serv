@@ -11,7 +11,9 @@ public class MailRequest {
     @NotBlank(message = "To address is mandatory")
     private String to;
 
+    @NotBlank(message = "Subject is mandatory")
     private String subject;
+
     private String text;
     private String html;
 }

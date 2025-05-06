@@ -20,7 +20,7 @@ public class MailController {
     private final MailService mailService;
 
     @PostMapping
-    @PreAuthorize("hasAuthority('ROLE_mailer:send')")
+    // @PreAuthorize("hasAuthority('ROLE_mailer:send')")
     public ResponseEntity<String> sendMail(@RequestBody @Valid MailRequest mailRequest) throws MessagingException {
         mailService.sendMail(mailRequest);
         return ResponseEntity.ok("Mail sent");
