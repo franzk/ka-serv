@@ -1,0 +1,17 @@
+package net.franzka.kaserv.ka_mailer.dto;
+
+import jakarta.validation.constraints.NotBlank;
+import lombok.Data;
+
+@Data
+public class MailRequest {
+    @NotBlank(message = "From address is mandatory")
+    private String from;
+
+    @NotBlank(message = "To address is mandatory")
+    private String to;
+
+    private String subject;
+    private String text;
+    private String html;
+}

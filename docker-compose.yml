@@ -1,5 +1,14 @@
 services:
   # =====================
+  # Base image for Java (build only)
+  # =====================
+  java-base-builder:
+    build:
+      context: ./infra/base-java
+    image: ka-base-java:latest
+    entrypoint: ["echo", "Java base image built."]
+
+  # =====================
   # FRONT (Vue.js + Nginx)
   # =====================
   frontend:
@@ -63,6 +72,8 @@ services:
     environment:
       SPRING_APPLICATION_NAME: kaserv-springback
       KEYCLOAK_ISSUER: ${KEYCLOAK_ISSUER}
+    depends_on:
+      - java-base-builder
     ports:
       - "${BACK_PORT}:5027"
     networks:
