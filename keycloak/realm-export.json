@@ -88,6 +88,15 @@
         "attributes": {}
       },
       {
+        "id": "f282643f-0e4d-4470-855b-df6aef15d0b1",
+        "name": "mailer:send",
+        "description": "",
+        "composite": false,
+        "clientRole": false,
+        "containerId": "3402b0e2-60a4-433f-a1ad-135b271b3034",
+        "attributes": {}
+      },
+      {
         "id": "a07c1e2b-4ea1-4c9c-9502-a340f9a6aecb",
         "name": "user",
         "description": "KAServ User",
@@ -99,6 +108,7 @@
     ],
     "client": {
       "kaserv-back": [],
+      "ka-smtp-gateway-client": [],
       "realm-management": [
         {
           "id": "3374919b-569c-4c12-81f6-e44d960aa6b0",
@@ -469,6 +479,25 @@
   "webAuthnPolicyPasswordlessAvoidSameAuthenticatorRegister": false,
   "webAuthnPolicyPasswordlessAcceptableAaguids": [],
   "webAuthnPolicyPasswordlessExtraOrigins": [],
+  "users": [
+    {
+      "id": "d0788289-a9df-45ed-8d33-af1ba3781cb1",
+      "username": "service-account-ka-smtp-gateway-client",
+      "emailVerified": false,
+      "createdTimestamp": 1747854606072,
+      "enabled": true,
+      "totp": false,
+      "serviceAccountClientId": "ka-smtp-gateway-client",
+      "disableableCredentialTypes": [],
+      "requiredActions": [],
+      "realmRoles": [
+        "default-roles-kaserv",
+        "mailer:send"
+      ],
+      "notBefore": 0,
+      "groups": []
+    }
+  ],
   "scopeMappings": [
     {
       "clientScope": "offline_access",
@@ -783,6 +812,64 @@
       "nodeReRegistrationTimeout": -1,
       "defaultClientScopes": [
         "web-origins",
+        "acr",
+        "profile",
+        "roles",
+        "basic",
+        "email"
+      ],
+      "optionalClientScopes": [
+        "address",
+        "phone",
+        "offline_access",
+        "organization",
+        "microprofile-jwt"
+      ]
+    },
+    {
+      "id": "d80707ba-e0bd-436e-bcff-261aa75b1ed0",
+      "clientId": "ka-smtp-gateway-client",
+      "name": "KA SMTP Gateway",
+      "description": "",
+      "rootUrl": "",
+      "adminUrl": "",
+      "baseUrl": "",
+      "surrogateAuthRequired": false,
+      "enabled": true,
+      "alwaysDisplayInConsole": false,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "**********",
+      "redirectUris": [
+        "/*"
+      ],
+      "webOrigins": [
+        "/*"
+      ],
+      "notBefore": 0,
+      "bearerOnly": false,
+      "consentRequired": false,
+      "standardFlowEnabled": false,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": true,
+      "publicClient": false,
+      "frontchannelLogout": true,
+      "protocol": "openid-connect",
+      "attributes": {
+        "realm_client": "false",
+        "oidc.ciba.grant.enabled": "false",
+        "client.secret.creation.time": "1747854606",
+        "backchannel.logout.session.required": "true",
+        "standard.token.exchange.enabled": "false",
+        "oauth2.device.authorization.grant.enabled": "false",
+        "backchannel.logout.revoke.offline.tokens": "false"
+      },
+      "authenticationFlowBindingOverrides": {},
+      "fullScopeAllowed": true,
+      "nodeReRegistrationTimeout": -1,
+      "defaultClientScopes": [
+        "web-origins",
+        "service_account",
         "acr",
         "profile",
         "roles",
@@ -1630,7 +1717,7 @@
     "starttls": "false",
     "auth": "",
     "port": "1025",
-    "host": "mailhog",
+    "host": "ka-smtp-gateway",
     "replyTo": "",
     "from": "noreply@ka.local",
     "fromDisplayName": "Ka",
@@ -2573,7 +2660,7 @@
     "clientSessionMaxLifespan": "0",
     "darkMode": "true"
   },
-  "keycloakVersion": "26.2.3",
+  "keycloakVersion": "26.2.4",
   "userManagedAccessAllowed": false,
   "organizationsEnabled": false,
   "verifiableCredentialsEnabled": false,
