@@ -12,6 +12,6 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: ${KEYCLOAK_ISSUER:http://localhost:5028/realms/kaserv}
+          issuer-uri: ${KEYCLOAK_ISSUER:http://host.docker.internal:5028/realms/kaserv}
 server:
   port: 5030
