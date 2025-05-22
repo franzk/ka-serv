@@ -1,7 +1,7 @@
 services:
-  keycloak-db:
+  ka-keycloak-db:
     image: postgres:17
-    container_name: kaserv-keycloak-db
+    container_name: ka-keycloak-db
     environment:
       POSTGRES_DB: keycloak
       POSTGRES_USER: keycloak
@@ -11,31 +11,41 @@ services:
     networks:
       - kaserv-dev-net
 
-  keycloak:
+  ka-keycloak:
+    container_name: ka-keycloak
     build: ../keycloak
     command: ["start-dev", "--import-realm"]
     environment:
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
       KC_DB: postgres
-      KC_DB_URL: jdbc:postgresql://keycloak-db:5432/keycloak
+      KC_DB_URL: jdbc:postgresql://ka-keycloak-db:5432/keycloak
       KC_DB_USERNAME: keycloak
       KC_DB_PASSWORD: keycloak
     ports:
       - "5028:8080"
     depends_on:
-      - keycloak-db
+      - ka-keycloak-db
     volumes:
       - ../keycloak/:/opt/keycloak/data/import
       - ../keycloak/theme:/opt/keycloak/themes/ka-theme
     networks:
       - kaserv-dev-net
 
-  mailhog:
-    image: mailhog/mailhog:v1.0.1
-    container_name: kaserv-mailhog
+  ka-smtp-gateway:
+    container_name: ka-smtp-gateway
+    build:
+      context: ../ka-smtp-gateway
     ports:
       - "1025:1025" # SMTP
+    networks:
+      - kaserv-dev-net
+
+  ka-mailhog:
+    image: mailhog/mailhog:v1.0.1
+    container_name: ka-mailhog
+    ports:
+      - "1026:1025" # SMTP
       - "5125:8025" # Web UI
     networks:
       - kaserv-dev-net
