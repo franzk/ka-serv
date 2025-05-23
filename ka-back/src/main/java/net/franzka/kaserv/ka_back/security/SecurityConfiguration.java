@@ -1,4 +1,4 @@
-package net.franzka.kaserv.apringback.security;
+package net.franzka.kaserv.ka_back.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

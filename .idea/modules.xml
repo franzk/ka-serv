@@ -2,8 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/kaserv.iml" filepath="$PROJECT_DIR$/.idea/kaserv.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/springback.main.iml" filepath="$PROJECT_DIR$/.idea/modules/springback.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dev/dev.iml" filepath="$PROJECT_DIR$/dev/dev.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ka-back.main.iml" filepath="$PROJECT_DIR$/.idea/modules/ka-back.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ks-front/ka-front.iml" filepath="$PROJECT_DIR$/ks-front/ka-front.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ka-mailer.main.iml" filepath="$PROJECT_DIR$/.idea/modules/ka-mailer.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ka-smtp-gateway/ka-smtp-gateway.iml" filepath="$PROJECT_DIR$/ka-smtp-gateway/ka-smtp-gateway.iml" />
     </modules>
   </component>
 </project>

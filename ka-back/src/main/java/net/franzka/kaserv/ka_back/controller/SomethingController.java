@@ -1,6 +1,6 @@
-package net.franzka.kaserv.apringback.controller;
+package net.franzka.kaserv.ka_back.controller;
 
-import net.franzka.kaserv.apringback.domain.dto.SomethingDto;
+import net.franzka.kaserv.ka_back.domain.dto.SomethingDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;

@@ -1,4 +1,4 @@
-package net.franzka.kaserv.apringback.domain.dto;
+package net.franzka.kaserv.ka_back.domain.dto;
 
 import lombok.Builder;
 import lombok.Data;

@@ -1,4 +1,4 @@
-package net.franzka.kaserv.apringback.security;
+package net.franzka.kaserv.ka_back.security;
 
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.core.GrantedAuthority;
