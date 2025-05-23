@@ -23,8 +23,10 @@ public class MeController {
             Jwt jwt = (Jwt) authentication.getPrincipal();
             result.setName(jwt.getClaimAsString("preferred_username"));
             result.setEmail((String) jwt.getClaims().get("email"));
+            log.info("me : {}", result);
             return new ResponseEntity<>(result, HttpStatus.OK);
         }
+        log.warn("me : unauthorized");
         return new ResponseEntity<>(result, HttpStatus.UNAUTHORIZED);
     }
 
