@@ -1,17 +1,17 @@
 FROM node:24-slim
 
-# Installer pnpm globalement
+# Install pnpm
 RUN corepack enable && corepack prepare pnpm@latest --activate
 
 WORKDIR /app
 
-# Copier les fichiers de dépendances séparément pour optimiser le cache Docker
+# Copy package.json and pnpm-lock.yaml first to leverage Docker cache
 COPY package.json pnpm-lock.yaml ./
 
-# Installer les dépendances
+# Install dependencies
 RUN pnpm install --frozen-lockfile
 
-# Copier le reste du code
+# Copy the rest of the application code
 COPY . .
 
 EXPOSE 1025

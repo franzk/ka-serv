@@ -36,6 +36,8 @@ services:
     container_name: ka-smtp-gateway
     build:
       context: ../ka-smtp-gateway
+    env_file:
+      - ../ka-smtp-gateway/.env
     ports:
       - "1025:1025" # SMTP
     networks:
