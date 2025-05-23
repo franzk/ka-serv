@@ -30,7 +30,7 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
      */
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
-        log.info("handleMethodArgumentNotValid : {}", ex.getBindingResult().getFieldErrors().toString());
+        log.info("handleMethodArgumentNotValid : {}", ex.getBindingResult().getFieldErrors());
         List<FieldError> errors = ex.getBindingResult().getFieldErrors();
         List<String> errorMessages = errors.stream().map(DefaultMessageSourceResolvable::getDefaultMessage).toList();
         return handleExceptionInternal(ex, errorMessages, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);

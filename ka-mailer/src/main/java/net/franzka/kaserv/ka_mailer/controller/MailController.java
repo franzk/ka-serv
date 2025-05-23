@@ -25,7 +25,7 @@ MailController {
     @PostMapping
     @PreAuthorize("hasRole('ROLE_mailer:send')")
     public ResponseEntity<String> sendMail(@RequestBody @Valid MailRequest mailRequest) throws MessagingException {
-        log.info("sendMail : {}", mailRequest);
+        log.info("sendMail request : from {} to {} with subject {}", mailRequest.getFrom(), mailRequest.getTo(), mailRequest.getSubject());
         mailService.sendMail(mailRequest);
         return ResponseEntity.ok("Mail sent");
     }

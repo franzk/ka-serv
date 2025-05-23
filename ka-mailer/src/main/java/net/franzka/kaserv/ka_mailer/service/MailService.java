@@ -3,6 +3,7 @@ package net.franzka.kaserv.ka_mailer.service;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import net.franzka.kaserv.ka_mailer.dto.MailRequest;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class MailService {
 
     private final JavaMailSender mailSender;
@@ -28,6 +30,7 @@ public class MailService {
             helper.setText(request.getText(), false);
         }
 
+        log.info("Sending mail from {} to {} with subject {}", request.getFrom(), request.getTo(), request.getSubject());
         mailSender.send(message);
     }
 
