@@ -1,4 +1,8 @@
 # This Dockerfile is used to create a base image for Java applications
+# example: 
+# FROM ka-base-java:latest
+# copy jar file, run it, expose port, etc...
+
 FROM openjdk:21-jdk-slim
 
 # Install necessary utilities to download the certificate

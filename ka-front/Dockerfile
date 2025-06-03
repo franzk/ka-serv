@@ -1,5 +1,5 @@
 # === Dockerfile for FRONT (Vue.js + Nginx) ===
-# ks-front/Dockerfile
+
 FROM node:23-slim AS build
 WORKDIR /app
 COPY . .

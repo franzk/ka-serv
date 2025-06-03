@@ -38,8 +38,6 @@ services:
       context: ../ka-smtp-gateway
     env_file:
       - ../ka-smtp-gateway/.env
-    ports:
-      - "1025:1025" # SMTP
     networks:
       - kaserv-dev-net
 
