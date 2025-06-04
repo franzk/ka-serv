@@ -80,6 +80,18 @@ services:
       - ka-serv-network
       - ka-proxy-network
 
+  # =====================
+  # SMTP Gateway (Node.js)
+  # =====================
+  ka-smtp-gateway:
+    container_name: ka-smtp-gateway
+    build:
+      context: ../ka-smtp-gateway
+    env_file:
+      - ../ka-smtp-gateway/.env.prod
+    networks:
+      - ka-serv-network
+
 volumes:
   keycloak_pgdata:
 

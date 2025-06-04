@@ -2,11 +2,19 @@
 
 A full-stack proof of concept (POC) featuring user authentication via Keycloak.
 
-This project includes:
+---
 
-- a Vue 3 frontend (`/ks-front`)
-- a Spring Boot backend (`/ks-back`)
-- a Keycloak instance with a PostgreSQL database (via Docker)
+## Architecture
+
+![Architecture Diagram](./doc/ka-architecture.png)
+
+| Service      | Port | Description                                                                                                                                                                                        |
+| ------------ | ---- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Frontend     | 5173 | Vue 3 application for user interaction                                                                                                                                                             |
+| Backend      | 5027 | Spring Boot API and business logic                                                                                                                                                                 |
+| Keycloak     | 5028 | Identity and access management (authentication and authorization)                                                                                                                                  |
+| Mailer       | 5030 | Spring Boot service for sending emails                                                                                                                                                             |
+| SMTP Gateway | 1025 | Node.js service that intercepts SMTP requests from Keycloak, extracts email data, and forwards it as HTTP REST calls to the mailer service. Enables Keycloak to send emails via the mailer service |
 
 ---
 
