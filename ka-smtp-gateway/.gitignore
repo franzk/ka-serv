@@ -6,8 +6,7 @@ yarn-error.log*
 
 # dotenv config
 .env
-.env.local
-.env.*.local
+.env.prod
 
 # Runtime
 dist/
