@@ -13,10 +13,10 @@ services:
   # =====================
   frontend:
     build:
-      context: ./ks-front
-    container_name: kaserv-frontend
+      context: ./ka-front
+    container_name: ka-frontend
     networks:
-      - ka-serv-network
+      - ka-network
       - ka-proxy-network
 
   # =====================
@@ -24,7 +24,7 @@ services:
   # =====================
   keycloak-db:
     image: postgres:17
-    container_name: kaserv-keycloak-db
+    container_name: ka-keycloak-db
     environment:
       POSTGRES_DB: keycloak
       POSTGRES_USER: keycloak
@@ -32,11 +32,11 @@ services:
     volumes:
       - keycloak_pgdata:/var/lib/postgresql/data
     networks:
-      - ka-serv-network
+      - ka-network
 
   keycloak:
     build: ./keycloak
-    container_name: kaserv-keycloak
+    container_name: ka-keycloak
     command:
       [
         "start",
@@ -59,7 +59,7 @@ services:
     depends_on:
       - keycloak-db
     networks:
-      - ka-serv-network
+      - ka-network
       - ka-proxy-network
 
   # =====================
@@ -67,17 +67,17 @@ services:
   # =====================
   backend:
     build:
-      context: ./ks-back
-    container_name: kaserv-backend
+      context: ./ka-back
+    container_name: ka-backend
     environment:
-      SPRING_APPLICATION_NAME: kaserv-springback
+      SPRING_APPLICATION_NAME: ka-back
       KEYCLOAK_ISSUER: ${KEYCLOAK_ISSUER}
     depends_on:
       - java-base-builder
     ports:
       - "${BACK_PORT}:5027"
     networks:
-      - ka-serv-network
+      - ka-network
       - ka-proxy-network
 
   # =====================
@@ -90,13 +90,31 @@ services:
     env_file:
       - ../ka-smtp-gateway/.env.prod
     networks:
-      - ka-serv-network
+      - ka-network
+
+  # =====================
+  # MAILER (Spring Boot)
+  # =====================
+  ka-mailer:
+    build:
+      context: ./ka-mailer
+    container_name: ka-mailer
+    environment:
+      SPRING_APPLICATION_NAME: ka-mailer
+      KEYCLOAK_ISSUER: ${KEYCLOAK_ISSUER}
+    depends_on:
+      - java-base-builder
+    ports:
+      - "${MAILER_PORT}:5028"
+    networks:
+      - ka-network
+      - ka-proxy-network
 
 volumes:
   keycloak_pgdata:
 
 networks:
   ka-serv-network:
-    name: ka-serv-network
+    name: ka-network
   ka-proxy-network:
     external: true
