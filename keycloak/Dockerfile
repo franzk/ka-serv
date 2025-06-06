@@ -19,7 +19,9 @@ exec /opt/keycloak/bin/kc.sh start --optimized --import-realm \
   --http-port=8080 \
   --proxy-headers=xforwarded \
   --hostname="${KEYCLOAK_HOSTNAME:-localhost}" \
-  --hostname-admin="${KEYCLOAK_HOSTNAME:-localhost}"' > /opt/keycloak/bin/start.sh && \
+  --hostname-admin="${KEYCLOAK_HOSTNAME:-localhost}" \
+  ${KEYCLOAK_ADMIN:+"--http-admin-user=${KEYCLOAK_ADMIN}"} \
+  ${KEYCLOAK_ADMIN_PASSWORD:+"--http-admin-password=${KEYCLOAK_ADMIN_PASSWORD}"}' > /opt/keycloak/bin/start.sh && \
     chmod +x /opt/keycloak/bin/start.sh
 
 # Sécurité
