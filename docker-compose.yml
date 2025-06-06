@@ -82,7 +82,7 @@ services:
   ka-smtp-gateway:
     container_name: ka-smtp-gateway
     build:
-      context: ../ka-smtp-gateway
+      context: ./ka-smtp-gateway
     networks:
       - ka-network
 
