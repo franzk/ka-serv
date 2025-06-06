@@ -11,6 +11,7 @@ COPY ./theme /opt/keycloak/themes
 COPY ./start.sh /opt/keycloak/bin/start.sh
 
 # Permissions + exécution
+USER root
 RUN chmod +x /opt/keycloak/bin/start.sh && \
     /opt/keycloak/bin/kc.sh build
 
