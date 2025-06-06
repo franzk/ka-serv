@@ -5,12 +5,8 @@ echo "=== Entrée dans start.sh ==="
 
 # Affichage debug des variables
 echo "KEYCLOAK_HOSTNAME=${KEYCLOAK_HOSTNAME}"
-echo "KEYCLOAK_ADMIN=${KEYCLOAK_ADMIN}"
-echo "KEYCLOAK_ADMIN_PASSWORD=${KEYCLOAK_ADMIN_PASSWORD}"
 
 # Valeurs par défaut si non définies
-: "${KEYCLOAK_ADMIN:=admin}"
-: "${KEYCLOAK_ADMIN_PASSWORD:=admin}"
 : "${KEYCLOAK_HOSTNAME:=localhost}"
 
 exec /opt/keycloak/bin/kc.sh start --optimized --import-realm \
@@ -18,6 +14,4 @@ exec /opt/keycloak/bin/kc.sh start --optimized --import-realm \
   --http-port=8080 \
   --proxy-headers=xforwarded \
   --hostname="${KEYCLOAK_HOSTNAME}" \
-  --hostname-admin="${KEYCLOAK_HOSTNAME}" \
-  --http-admin-user="${KEYCLOAK_ADMIN}" \
-  --http-admin-password="${KEYCLOAK_ADMIN_PASSWORD}"
+  --hostname-admin="${KEYCLOAK_HOSTNAME}"

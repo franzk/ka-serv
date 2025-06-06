@@ -36,13 +36,14 @@ services:
     restart: unless-stopped
 
   keycloak:
-    build: ./keycloak
     container_name: ka-keycloak
+    build:
+      context: ./keycloak
+      args:
+        # Admin Keycloak
+        KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN}
+        KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
     environment:
-      # Admin Keycloak
-      KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN}
-      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
-
       # Base de données
       KC_DB: postgres
       KC_DB_URL: jdbc:postgresql://keycloak-db:5432/keycloak
@@ -51,6 +52,8 @@ services:
 
       # Hostname (utilisé par le script interne)
       KEYCLOAK_HOSTNAME: ${KEYCLOAK_HOSTNAME}
+    ports:
+      - 8080:8080
     depends_on:
       - keycloak-db
     networks:
