@@ -49,7 +49,7 @@ services:
       KC_DB_USERNAME: keycloak
       KC_DB_PASSWORD: keycloak
 
-      # Hostname (sera utilisé par les arguments --hostname dans le CMD)
+      # Hostname (utilisé par le script interne)
       KEYCLOAK_HOSTNAME: ${KEYCLOAK_HOSTNAME}
     depends_on:
       - keycloak-db
@@ -82,7 +82,9 @@ services:
   ka-smtp-gateway:
     container_name: ka-smtp-gateway
     build:
-      context: ./ka-smtp-gateway
+      context: ../ka-smtp-gateway
+    env_file:
+      - ../ka-smtp-gateway/.env.prod
     networks:
       - ka-network
 
@@ -98,6 +100,8 @@ services:
       KEYCLOAK_ISSUER: ${KEYCLOAK_ISSUER}
     depends_on:
       - java-base-builder
+    ports:
+      - "${MAILER_PORT}:5028"
     networks:
       - ka-network
       - ka-proxy-network
