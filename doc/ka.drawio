@@ -1,0 +1,99 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36" version="27.1.4">
+  <diagram name="Page-1" id="x0Qr4yEy7_PveLO2-htW">
+    <mxGraphModel dx="848" dy="504" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="d-8s2zLhdmBTyWcYP9EI-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="d-8s2zLhdmBTyWcYP9EI-1" target="d-8s2zLhdmBTyWcYP9EI-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="d-8s2zLhdmBTyWcYP9EI-12" value="&amp;nbsp;send mail&amp;nbsp;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="d-8s2zLhdmBTyWcYP9EI-11">
+          <mxGeometry x="-0.1333" y="1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="d-8s2zLhdmBTyWcYP9EI-1" value="Keycloak" style="whiteSpace=wrap;html=1;aspect=fixed;fillColor=#a20025;fontColor=#ffffff;strokeColor=#6F0000;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="390" y="210" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="d-8s2zLhdmBTyWcYP9EI-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="d-8s2zLhdmBTyWcYP9EI-2" target="d-8s2zLhdmBTyWcYP9EI-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="d-8s2zLhdmBTyWcYP9EI-7" value="&amp;nbsp;Get token / login&amp;nbsp;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="d-8s2zLhdmBTyWcYP9EI-4">
+          <mxGeometry x="-0.2333" y="2" relative="1" as="geometry">
+            <mxPoint y="1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="d-8s2zLhdmBTyWcYP9EI-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="d-8s2zLhdmBTyWcYP9EI-2" target="d-8s2zLhdmBTyWcYP9EI-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="d-8s2zLhdmBTyWcYP9EI-8" value="&amp;nbsp;API calls&amp;nbsp;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="d-8s2zLhdmBTyWcYP9EI-5">
+          <mxGeometry x="-0.0595" y="-3" relative="1" as="geometry">
+            <mxPoint y="-3" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="d-8s2zLhdmBTyWcYP9EI-2" value="ka-front : 5173" style="whiteSpace=wrap;html=1;fillColor=#1ba1e2;fontColor=#ffffff;strokeColor=#006EAF;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="90" y="230" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="d-8s2zLhdmBTyWcYP9EI-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.75;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="d-8s2zLhdmBTyWcYP9EI-3" target="d-8s2zLhdmBTyWcYP9EI-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="d-8s2zLhdmBTyWcYP9EI-9" value="&amp;nbsp;Verify token&amp;nbsp;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="d-8s2zLhdmBTyWcYP9EI-6">
+          <mxGeometry x="-0.0632" y="1" relative="1" as="geometry">
+            <mxPoint y="1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="d-8s2zLhdmBTyWcYP9EI-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="d-8s2zLhdmBTyWcYP9EI-3" target="d-8s2zLhdmBTyWcYP9EI-16">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="d-8s2zLhdmBTyWcYP9EI-22" value="&lt;br&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="d-8s2zLhdmBTyWcYP9EI-21">
+          <mxGeometry x="-0.108" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="d-8s2zLhdmBTyWcYP9EI-23" value="&amp;nbsp;future : direct mail&amp;nbsp;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="d-8s2zLhdmBTyWcYP9EI-21">
+          <mxGeometry x="-0.131" y="1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="d-8s2zLhdmBTyWcYP9EI-3" value="ka-back : 5027" style="whiteSpace=wrap;html=1;fillColor=#e3c800;strokeColor=#B09500;fontColor=#000000;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="250" y="70" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="d-8s2zLhdmBTyWcYP9EI-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.75;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="d-8s2zLhdmBTyWcYP9EI-10" target="d-8s2zLhdmBTyWcYP9EI-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="d-8s2zLhdmBTyWcYP9EI-15" value="&amp;nbsp;get token&amp;nbsp;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="d-8s2zLhdmBTyWcYP9EI-14">
+          <mxGeometry x="0.0623" y="-2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="d-8s2zLhdmBTyWcYP9EI-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="d-8s2zLhdmBTyWcYP9EI-10" target="d-8s2zLhdmBTyWcYP9EI-16">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="d-8s2zLhdmBTyWcYP9EI-18" value="&amp;nbsp;API call&amp;nbsp;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="d-8s2zLhdmBTyWcYP9EI-17">
+          <mxGeometry x="-0.1748" y="-2" relative="1" as="geometry">
+            <mxPoint y="-2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="d-8s2zLhdmBTyWcYP9EI-10" value="ka-smtp-gateway : 1025" style="whiteSpace=wrap;html=1;fillColor=#60a917;fontColor=#ffffff;strokeColor=#2D7600;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="547" y="230" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="d-8s2zLhdmBTyWcYP9EI-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="d-8s2zLhdmBTyWcYP9EI-16" target="d-8s2zLhdmBTyWcYP9EI-1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="810" y="320" />
+              <mxPoint x="430" y="320" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="d-8s2zLhdmBTyWcYP9EI-20" value="&amp;nbsp;Verify token&amp;nbsp;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="d-8s2zLhdmBTyWcYP9EI-19">
+          <mxGeometry x="-0.2659" y="2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="d-8s2zLhdmBTyWcYP9EI-16" value="ka-mailer : 5030" style="whiteSpace=wrap;html=1;fillColor=#60a917;fontColor=#ffffff;strokeColor=#2D7600;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="750" y="230" width="120" height="40" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

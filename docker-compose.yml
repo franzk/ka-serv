@@ -9,7 +9,7 @@ services:
     entrypoint: ["echo", "Java base image built."]
 
   # =====================
-  # FRONT (Vue.js + Nginx)
+  # FRONTEND (Vue.js + Nginx)
   # =====================
   frontend:
     build:
@@ -33,34 +33,30 @@ services:
       - keycloak_pgdata:/var/lib/postgresql/data
     networks:
       - ka-network
+    restart: unless-stopped
 
   keycloak:
     build: ./keycloak
     container_name: ka-keycloak
-    command:
-      [
-        "start",
-        "--import-realm",
-        "--http-enabled=true",
-        "--http-port=8080",
-        "--proxy-headers=xforwarded",
-        "--hostname=${KEYCLOAK_HOSTNAME}",
-        "--hostname-admin=${KEYCLOAK_HOSTNAME}",
-      ]
     environment:
+      # Admin Keycloak
       KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN}
       KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
+
+      # Base de données
       KC_DB: postgres
       KC_DB_URL: jdbc:postgresql://keycloak-db:5432/keycloak
       KC_DB_USERNAME: keycloak
       KC_DB_PASSWORD: keycloak
-    volumes:
-      - ./keycloak/:/opt/keycloak/data/import
+
+      # Hostname (sera utilisé par les arguments --hostname dans le CMD)
+      KEYCLOAK_HOSTNAME: ${KEYCLOAK_HOSTNAME}
     depends_on:
       - keycloak-db
     networks:
       - ka-network
       - ka-proxy-network
+    restart: unless-stopped
 
   # =====================
   # BACKEND (Spring Boot)
@@ -114,7 +110,7 @@ volumes:
   keycloak_pgdata:
 
 networks:
-  ka-serv-network:
+  ka-network:
     name: ka-network
   ka-proxy-network:
     external: true
