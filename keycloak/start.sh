@@ -1,6 +1,13 @@
 #!/bin/bash
 set -e
 
+echo "=== Entrée dans start.sh ==="
+
+# Affichage debug des variables
+echo "KEYCLOAK_HOSTNAME=${KEYCLOAK_HOSTNAME}"
+echo "KEYCLOAK_ADMIN=${KEYCLOAK_ADMIN}"
+echo "KEYCLOAK_ADMIN_PASSWORD=${KEYCLOAK_ADMIN_PASSWORD}"
+
 # Valeurs par défaut si non définies
 : "${KEYCLOAK_ADMIN:=admin}"
 : "${KEYCLOAK_ADMIN_PASSWORD:=admin}"
