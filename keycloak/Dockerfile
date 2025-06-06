@@ -1,6 +1,7 @@
 FROM quay.io/keycloak/keycloak:26.2
 
 # Activer les options de prod
+ENV KC_DB=postgres
 ENV KC_HEALTH_ENABLED=true
 ENV KC_METRICS_ENABLED=true
 ENV KC_LOG_LEVEL=info
