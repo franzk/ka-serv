@@ -39,10 +39,8 @@ services:
     container_name: ka-keycloak
     build:
       context: ./keycloak
-      args:
-        # Admin Keycloak
-        KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN}
-        KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
+    env_file:
+      - ./keycloak/.env
     environment:
       # Base de données
       KC_DB: postgres
