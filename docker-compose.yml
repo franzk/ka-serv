@@ -40,7 +40,7 @@ services:
     build:
       context: ./keycloak
     env_file:
-      - ./keycloak/.env
+      - ./keycloak/.env.prod
     environment:
       # Base de données
       KC_DB: postgres
