@@ -5,8 +5,6 @@ ENV KC_DB=postgres
 ENV KC_HEALTH_ENABLED=true
 ENV KC_METRICS_ENABLED=true
 ENV KC_LOG_LEVEL=info
-# ENV KEYCLOAK_ADMIN=admin
-# ENV KEYCLOAK_ADMIN_PASSWORD=admin
 
 # Copier les fichiers nécessaires
 COPY ./realm-export.json /opt/keycloak/data/import/realm-export.json
