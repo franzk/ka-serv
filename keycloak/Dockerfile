@@ -9,8 +9,9 @@ ENV KC_LOG_LEVEL=info
 # ENV KEYCLOAK_ADMIN_PASSWORD=admin
 
 # Copier les fichiers nécessaires
+COPY .env.prod .env
 COPY ./realm-export.json /opt/keycloak/data/import/realm-export.json
-COPY ./theme /opt/keycloak/themes
+COPY ./theme /opt/keycloak/themes/ka-theme
 COPY ./start.sh /opt/keycloak/bin/start.sh
 
 # Permissions + exécution
