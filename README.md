@@ -64,18 +64,20 @@ Visit: http://localhost:5173
 
 ## ▶ Deploying the Project in Production
 
-### 1. Configure Environment Variables (.env)
+### 1. Configure the secrets
 
-All environment-specific values (ports, credentials, realm names, etc.) are centralized in a single .env file.
+| Secret Name                 | Content                  |
+| --------------------------- | ------------------------ |
+| KC_BOOTSTRAP_ADMIN_USERNAME | Keycloak admin login     |
+| KC_BOOTSTRAP_ADMIN_PASSWORD | Keycloak admin password  |
+| KEYCLOAK_HOSTNAME           | Keycloak url             |
+| VPS_HOST                    | IP ou domaine de ton VPS |
+| VPS_USER                    | SSH user                 |
+| VPS_SSH_KEY                 | SSH private key          |
 
-```bash
-cp .env.example .env
-```
+### 2. Deploy
 
-Edit it to suit your deployment settings.
+You can deploy the project
 
-### 2. Launch Production Stack
-
-```bash
-docker compose up
-```
+- either manually from the GitHub Actions interface,
+- or automatically by pushing to the `main` branch.

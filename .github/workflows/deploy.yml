@@ -1,0 +1,42 @@
+name: Deploy to VPS
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Build and deploy to production server
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Generate keycloak/.env.prod from secrets
+        run: |
+          mkdir -p keycloak
+          echo "KC_BOOTSTRAP_ADMIN_USERNAME=${{ secrets.KEYCLOAK_ADMIN_USER }}" > keycloak/.env.prod
+          echo "KC_BOOTSTRAP_ADMIN_PASSWORD=${{ secrets.KEYCLOAK_ADMIN_PASSWORD }}" >> keycloak/.env.prod
+          echo "KEYCLOAK_HOSTNAME=${{ secrets.KEYCLOAK_HOSTNAME }}" >> keycloak/.env.prod
+
+      - name: Upload keycloak/.env.prod to VPS
+        uses: appleboy/scp-action@v0.1.5
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          source: "keycloak/.env.prod"
+          target: "/home/${{ secrets.VPS_USER }}/ka-serv/keycloak/"
+
+      - name: Deploy on VPS via SSH
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            cd /home/${{ secrets.VPS_USER }}/ka-serv
+            docker compose up -d
