@@ -6,6 +6,7 @@ dist
 .idea
 *.log
 *.env
+.dockerignore
 
 # But don't ignore this :
 !*.env.prod

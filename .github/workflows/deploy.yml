@@ -21,6 +21,7 @@ jobs:
           echo "KC_BOOTSTRAP_ADMIN_USERNAME=${{ secrets.KEYCLOAK_ADMIN_USER }}" > keycloak/.env.prod
           echo "KC_BOOTSTRAP_ADMIN_PASSWORD=${{ secrets.KEYCLOAK_ADMIN_PASSWORD }}" >> keycloak/.env.prod
           echo "KEYCLOAK_HOSTNAME=${{ secrets.KEYCLOAK_HOSTNAME }}" >> keycloak/.env.prod
+          echo "SMTP_GATEWAY_CLIENT_SECRET=${{ secrets.SMTP_GATEWAY_CLIENT_SECRET }}" >> keycloak/.env.prod
 
       - name: Upload keycloak/.env.prod to VPS
         uses: appleboy/scp-action@v0.1.5

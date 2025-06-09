@@ -40,7 +40,7 @@ This will spin up Keycloak and the associated PostgreSQL database.
 ### 2. Start the Frontend (Vue 3)
 
 ```bash
-cd ks-front
+cd ka-front
 pnpm install
 pnpm run dev
 ```
@@ -50,7 +50,7 @@ Available at http://localhost:5173
 ### 3. Start the Backend (Spring Boot + Gradle)
 
 ```bash
-cd ks-back
+cd ka-back
 ./gradlew bootRun
 ```
 
@@ -64,20 +64,45 @@ Visit: http://localhost:5173
 
 ## ▶ Deploying the Project in Production
 
-### 1. Configure the secrets
+### 🚀 Manual deployment
 
-| Secret Name                 | Content                  |
-| --------------------------- | ------------------------ |
-| KC_BOOTSTRAP_ADMIN_USERNAME | Keycloak admin login     |
-| KC_BOOTSTRAP_ADMIN_PASSWORD | Keycloak admin password  |
-| KEYCLOAK_HOSTNAME           | Keycloak url             |
-| VPS_HOST                    | IP ou domaine de ton VPS |
-| VPS_USER                    | SSH user                 |
-| VPS_SSH_KEY                 | SSH private key          |
+#### 1. Prepare environment variables
 
-### 2. Deploy
+```bash
+cd keycloak
+cp .env.prod.example .env.prod
+```
 
-You can deploy the project
+Then open .env.prod and fill in the required values:
 
-- either manually from the GitHub Actions interface,
-- or automatically by pushing to the `main` branch.
+- KC_BOOTSTRAP_ADMIN_USERNAME
+- KC_BOOTSTRAP_ADMIN_PASSWORD
+- KEYCLOAK_HOSTNAME
+
+#### 2. Launch the deployment script
+
+From the root of the project:
+
+```bash
+./deploy.sh
+```
+
+### 🤖 Deploy via GitHubAction
+
+#### 1. Configure the secrets
+
+| Secret Name                 | Content                    |
+| --------------------------- | -------------------------- |
+| KC_BOOTSTRAP_ADMIN_USERNAME | Keycloak admin login       |
+| KC_BOOTSTRAP_ADMIN_PASSWORD | Keycloak admin password    |
+| KEYCLOAK_HOSTNAME           | Keycloak url               |
+| VPS_HOST                    | IP or domain of the server |
+| VPS_USER                    | SSH user                   |
+| VPS_SSH_KEY                 | SSH private key            |
+
+#### 2. Trigger deployment
+
+You can deploy the project:
+
+- ✅ Manually from the GitHub Actions tab
+- ✅ Automatically by pushing to the main branch

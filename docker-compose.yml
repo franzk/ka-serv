@@ -12,9 +12,13 @@ services:
   # FRONTEND (Vue.js + Nginx)
   # =====================
   frontend:
+    container_name: ka-front
     build:
       context: ./ka-front
-    container_name: ka-frontend
+    environment:
+      - VITE_KEYCLOAK_URL=${KEYCLOAK_URL}
+    env_file:
+      - fileName: ./ka-front/.env.prod
     networks:
       - ka-network
       - ka-proxy-network
@@ -51,6 +55,8 @@ services:
       - 8080:8080
     depends_on:
       - keycloak-db
+    volumes:
+      - ./keycloak/.env.prod:/opt/keycloak/.env.prod:ro
     networks:
       - ka-network
       - ka-proxy-network
@@ -81,6 +87,10 @@ services:
     container_name: ka-smtp-gateway
     build:
       context: ./ka-smtp-gateway
+    environment:
+      - KEYCLOAK_TOKEN_URL: ${KEYCLOAK_TOKEN_URL}
+    env_file:
+      - ./ka-smtp-gateway/.env.prod
     networks:
       - ka-network
 
