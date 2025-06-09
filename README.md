@@ -68,6 +68,18 @@ Visit: http://localhost:5173
 
 #### 1. Prepare environment variables
 
+From the root of the project:
+
+```bash
+cp .env.example .env
+```
+
+Then open .env and fill in the required values :
+
+- KEYCLOAK_URL
+- KEYCLOAK_ISSUER
+- KEYCLOAK_TOKEN_URL
+
 ```bash
 cd keycloak
 cp .env.prod.example .env.prod
@@ -77,7 +89,7 @@ Then open .env.prod and fill in the required values:
 
 - KC_BOOTSTRAP_ADMIN_USERNAME
 - KC_BOOTSTRAP_ADMIN_PASSWORD
-- KEYCLOAK_HOSTNAME
+- KEYCLOAK_HOSTNAME — must match KEYCLOAK_URL
 
 #### 2. Launch the deployment script
 
