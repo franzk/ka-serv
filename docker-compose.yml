@@ -15,8 +15,8 @@ services:
     container_name: ka-front
     build:
       context: ./ka-front
-    environment:
-      VITE_KEYCLOAK_URL: ${KEYCLOAK_URL}
+      args:
+        VITE_KEYCLOAK_URL: ${KEYCLOAK_URL}
     env_file:
       - ./ka-front/.env.prod
     networks:

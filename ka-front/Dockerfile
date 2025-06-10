@@ -2,6 +2,10 @@
 
 FROM node:23-slim AS build
 WORKDIR /app
+
+ARG VITE_KEYCLOAK_URL
+ENV VITE_KEYCLOAK_URL=$VITE_KEYCLOAK_URL
+
 COPY . .
 COPY .env.prod .env
 RUN npm install && npm run build
