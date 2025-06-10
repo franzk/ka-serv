@@ -74,8 +74,6 @@ services:
       KEYCLOAK_ISSUER: ${KEYCLOAK_ISSUER}
     depends_on:
       - java-base-builder
-    ports:
-      - "${BACK_PORT}:5027"
     networks:
       - ka-network
       - ka-proxy-network
