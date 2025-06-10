@@ -70,9 +70,16 @@ echo "🔐 Setting client secret for '$CLIENT_ID' in realm '$REALM' at '$SERVER_
   --password "$ADMIN_PASS"
 
 # Lookup the internal UUID of the client based on clientId
+# client_uuid=$(
+#  /opt/keycloak/bin/kcadm.sh get clients -r "$REALM" --fields id,clientId \
+#  | jq -r ".[] | select(.clientId==\"$CLIENT_ID\") | .id"
+#)
+
 client_uuid=$(
   /opt/keycloak/bin/kcadm.sh get clients -r "$REALM" --fields id,clientId \
-  | jq -r ".[] | select(.clientId==\"$CLIENT_ID\") | .id"
+  | grep "\"clientId\" : \"$CLIENT_ID\"" -B 1 \
+  | grep '"id"' \
+  | sed 's/.*"id" : "\(.*\)".*/\1/'
 )
 
 # Fail if the client was not found
