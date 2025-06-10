@@ -16,9 +16,9 @@ services:
     build:
       context: ./ka-front
     environment:
-      - VITE_KEYCLOAK_URL=${KEYCLOAK_URL}
+      VITE_KEYCLOAK_URL: ${KEYCLOAK_URL}
     env_file:
-      - fileName: ./ka-front/.env.prod
+      - ./ka-front/.env.prod
     networks:
       - ka-network
       - ka-proxy-network
@@ -86,7 +86,7 @@ services:
     build:
       context: ./ka-smtp-gateway
     environment:
-      - KEYCLOAK_TOKEN_URL: ${KEYCLOAK_TOKEN_URL}
+      KEYCLOAK_TOKEN_URL: ${KEYCLOAK_TOKEN_URL}
     env_file:
       - ./ka-smtp-gateway/.env.prod
     networks:
