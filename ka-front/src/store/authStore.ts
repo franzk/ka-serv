@@ -6,6 +6,7 @@ import { MeService } from '@/service/me.service'
 import type { Me } from '@/domain/Me'
 
 const keycloak = new Keycloak(keycloakConfig)
+console.log('Keycloak instance created:', keycloak)
 
 export const useAuthStore = defineStore('auth', () => {
   const isAuthenticated = ref<boolean>(false)
