@@ -19,6 +19,11 @@ COPY ./scripts/start.sh /opt/keycloak/bin/start.sh
 # Switch to root to set permissions and install scripts
 USER root
 
+RUN apt-get update && \
+    apt-get install -y jq && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
 # Copy the client secret injection script
 COPY ./scripts/keycloak-set-client-secret.sh /opt/keycloak/bin/scripts/keycloak-set-client-secret.sh
 
