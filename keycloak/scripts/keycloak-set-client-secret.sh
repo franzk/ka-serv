@@ -94,4 +94,4 @@ fi
 echo "✅ Secret for '$CLIENT_ID' updated successfully."
 
 # Clear auth context
-/opt/keycloak/bin/kcadm.sh config unset
+# /opt/keycloak/bin/kcadm.sh config unset
