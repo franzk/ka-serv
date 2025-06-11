@@ -1,6 +1,7 @@
 package net.franzka.kaserv.ka_mailer.service;
 
 import jakarta.mail.MessagingException;
+import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -9,6 +10,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+
+import java.io.UnsupportedEncodingException;
 
 @Service
 @RequiredArgsConstructor
@@ -20,11 +23,13 @@ public class MailService {
     @Value("${spring.mail.username}")
     private String defaultFromAddress;
 
-    public void sendMail(MailRequest request) throws MessagingException {
+    public void sendMail(MailRequest request) throws MessagingException, UnsupportedEncodingException {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
 
-        helper.setFrom(defaultFromAddress);
+        InternetAddress from = new InternetAddress(defaultFromAddress, "Ka");
+
+        helper.setFrom(from);
         helper.setTo(request.getTo());
         helper.setSubject(request.getSubject());
 
