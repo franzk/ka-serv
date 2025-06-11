@@ -102,6 +102,8 @@ services:
     environment:
       SPRING_APPLICATION_NAME: ka-mailer
       KEYCLOAK_ISSUER: ${KEYCLOAK_ISSUER}
+    env_file:
+      - ./ka-mailer/.env
     depends_on:
       - java-base-builder
     networks:
