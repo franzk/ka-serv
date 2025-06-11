@@ -9,7 +9,7 @@ set -euo pipefail
 #   ./patch-realm-secret.sh <client-id> <client-secret>
 # ─────────────────────────────────────────────────────────────
 
-REALM_FILE="../realm-export.json"
+REALM_FILE="./keycloak/realm-export.json"
 
 CLIENT_ID="${1:-}"
 CLIENT_SECRET="${2:-}"
