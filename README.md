@@ -68,7 +68,7 @@ Visit: http://localhost:5173
 
 #### 1. Prepare environment variables
 
-From the root of the project:
+##### Project root
 
 ```bash
 cp .env.example .env
@@ -80,6 +80,8 @@ Then open .env and fill in the required values :
 - KEYCLOAK_ISSUER
 - KEYCLOAK_TOKEN_URL
 
+##### Keycloak
+
 ```bash
 cd keycloak
 cp .env.prod.example .env.prod
@@ -90,6 +92,20 @@ Then open .env.prod and fill in the required values:
 - KC_BOOTSTRAP_ADMIN_USERNAME
 - KC_BOOTSTRAP_ADMIN_PASSWORD
 - KEYCLOAK_HOSTNAME — must match KEYCLOAK_URL
+
+##### Ka-mailer
+
+```bash
+cd ka-mailer
+cp .env.example .env
+```
+
+Then open .env and fill in the required values:
+
+- SMTP_HOST
+- SMTP_PORT
+- SMTP_USERNAME
+- SMTP_PASSWORD
 
 #### 2. Launch the deployment script
 
@@ -103,14 +119,18 @@ From the root of the project:
 
 #### 1. Configure the secrets
 
-| Secret Name                 | Content                    |
-| --------------------------- | -------------------------- |
-| KC_BOOTSTRAP_ADMIN_USERNAME | Keycloak admin login       |
-| KC_BOOTSTRAP_ADMIN_PASSWORD | Keycloak admin password    |
-| KEYCLOAK_HOSTNAME           | Keycloak url               |
-| VPS_HOST                    | IP or domain of the server |
-| VPS_USER                    | SSH user                   |
-| VPS_SSH_KEY                 | SSH private key            |
+| Secret Name                 | Content                                              |
+| --------------------------- | ---------------------------------------------------- |
+| KC_BOOTSTRAP_ADMIN_USERNAME | Keycloak admin login                                 |
+| KC_BOOTSTRAP_ADMIN_PASSWORD | Keycloak admin password                              |
+| KEYCLOAK_HOSTNAME           | Keycloak url                                         |
+| SMTP_HOST                   | SMTP server address used for sending emails          |
+| SMTP_PORT                   | Port of the SMTP server                              |
+| SMTP_USERNAME               | SMTP username (typically the sender's email address) |
+| SMTP_PASSWORD               | Password for the SMTP account                        |
+| VPS_HOST                    | IP or domain of the server                           |
+| VPS_USER                    | SSH user                                             |
+| VPS_SSH_KEY                 | SSH private key                                      |
 
 #### 2. Trigger deployment
 
