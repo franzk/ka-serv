@@ -8,7 +8,7 @@ ENV KC_METRICS_ENABLED=true
 ENV KC_LOG_LEVEL=info
 
 # Copy realm export for initial import (used with --import-realm)
-COPY ./realm-export.json /opt/keycloak/data/import/realm-export.json
+COPY --chown=1000:1000 ./realm-export.json /opt/keycloak/data/import/realm-export.json
 
 # Copy custom theme
 COPY ./theme /opt/keycloak/themes/ka-theme
