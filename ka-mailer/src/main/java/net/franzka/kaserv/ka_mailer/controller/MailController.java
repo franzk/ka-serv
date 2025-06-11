@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.UnsupportedEncodingException;
+
 @RestController
 @RequestMapping("/api/v1/mail")
 @RequiredArgsConstructor
@@ -24,7 +26,7 @@ MailController {
 
     @PostMapping
     @PreAuthorize("hasRole('ROLE_mailer:send')")
-    public ResponseEntity<String> sendMail(@RequestBody @Valid MailRequest mailRequest) throws MessagingException {
+    public ResponseEntity<String> sendMail(@RequestBody @Valid MailRequest mailRequest) throws MessagingException, UnsupportedEncodingException {
         log.info("sendMail request : from {} to {} with subject {}", mailRequest.getFrom(), mailRequest.getTo(), mailRequest.getSubject());
         mailService.sendMail(mailRequest);
         return ResponseEntity.ok("Mail sent");
