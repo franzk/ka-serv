@@ -19,11 +19,7 @@ COPY ./scripts/start.sh /opt/keycloak/bin/start.sh
 # Switch to root to set permissions and install scripts
 USER root
 
-# Copy the client secret injection script
-# COPY ./scripts/keycloak-set-client-secret.sh /opt/keycloak/bin/scripts/keycloak-set-client-secret.sh
-
-# Make scripts executable
-#RUN chmod +x /opt/keycloak/bin/scripts/keycloak-set-client-secret.sh && \
+# Make script executable
 RUN chmod +x /opt/keycloak/bin/start.sh 
 
 # Build Keycloak with custom configurations
