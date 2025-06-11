@@ -9,15 +9,24 @@ set -euo pipefail
 #   ./patch-realm-secret.sh <client-id> <client-secret>
 # ─────────────────────────────────────────────────────────────
 
+# ── Parse CLI arguments ────────────────────────────────────────
+CLIENT_ID=""
+CLIENT_SECRET=""
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --client-id) CLIENT_ID="$2"; shift ;;
+    --client-secret) CLIENT_SECRET="$2"; shift ;;
+    *) echo "❌ Unknown option: $1"; exit 1 ;;
+  esac
+  shift
+done
+# ── Validate arguments ────────────────────────────────────────
+: "${CLIENT_ID:?Missing --client-id argument}"
+: "${CLIENT_SECRET:?Missing --client-secret argument}"
+
+
 REALM_FILE="./keycloak/realm-export.json"
-
-CLIENT_ID="${1:-}"
-CLIENT_SECRET="${2:-}"
-
-if [[ -z "$CLIENT_ID" || -z "$CLIENT_SECRET" ]]; then
-  echo "❌ Usage: $0 <client-id> <client-secret>"
-  exit 1
-fi
 
 if [[ ! -f "$REALM_FILE" ]]; then
   echo "❌ File not found: $REALM_FILE"
