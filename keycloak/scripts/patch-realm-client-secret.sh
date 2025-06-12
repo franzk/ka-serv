@@ -25,7 +25,7 @@ done
 : "${CLIENT_ID:?Missing --client-id argument}"
 : "${CLIENT_SECRET:?Missing --client-secret argument}"
 
-
+# ── Check for realm-export.json file ─────────────────
 REALM_FILE="./keycloak/realm-export.json"
 
 if [[ ! -f "$REALM_FILE" ]]; then
@@ -33,6 +33,7 @@ if [[ ! -f "$REALM_FILE" ]]; then
   exit 1
 fi
 
+# ── Replace client secret in realm-export.json ───────────────
 echo "🔍 Checking for client '$CLIENT_ID' in $REALM_FILE..."
 
 MATCH_COUNT=$(jq --arg id "$CLIENT_ID" '[.clients[] | select(.clientId == $id)] | length' "$REALM_FILE")

@@ -1,9 +1,9 @@
 #!/bin/bash
 set -e
 
-echo "=== Entrée dans start.sh ==="
+echo "=== Enter into Keycloak start.sh ==="
 
-# Affichage debug des variables
+# Debugging: show environment variables
 echo "KEYCLOAK_HOSTNAME=${KEYCLOAK_HOSTNAME}"
 
 exec /opt/keycloak/bin/kc.sh start \
