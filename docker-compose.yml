@@ -6,7 +6,6 @@ services:
     build:
       context: ./infra/base-java
     image: ka-base-java:latest
-    # entrypoint: ["echo", "Java base image built."]
 
   # =====================
   # FRONTEND (Vue.js + Nginx)
