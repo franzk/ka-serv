@@ -6,7 +6,7 @@ services:
     build:
       context: ./infra/base-java
     image: ka-base-java:latest
-    entrypoint: ["echo", "Java base image built."]
+    # entrypoint: ["echo", "Java base image built."]
 
   # =====================
   # FRONTEND (Vue.js + Nginx)
@@ -55,8 +55,8 @@ services:
       - 8080:8080
     depends_on:
       - keycloak-db
-    volumes:
-      - ./keycloak/.env.prod:/opt/keycloak/.env.prod:ro
+    # volumes:
+    #  - ./keycloak/.env.prod:/opt/keycloak/.env.prod:ro
     networks:
       - ka-network
       - ka-proxy-network
@@ -66,9 +66,9 @@ services:
   # BACKEND (Spring Boot)
   # =====================
   backend:
+    container_name: ka-backend
     build:
       context: ./ka-back
-    container_name: ka-backend
     environment:
       SPRING_APPLICATION_NAME: ka-back
       KEYCLOAK_ISSUER: ${KEYCLOAK_ISSUER}
