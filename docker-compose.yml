@@ -40,11 +40,6 @@ services:
     networks:
       - ka-network
     restart: unless-stopped
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U keycloak -d keycloak"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
 
   keycloak:
     container_name: ka-keycloak
