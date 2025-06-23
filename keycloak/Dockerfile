@@ -19,6 +19,9 @@ COPY ./scripts/start.sh /opt/keycloak/bin/start.sh
 # Switch to root to set permissions and install scripts
 USER root
 
+# Install necessary packages for health checks
+RUN dnf install -y wget && dnf clean all
+
 # Make script executable
 RUN chmod +x /opt/keycloak/bin/start.sh 
 
