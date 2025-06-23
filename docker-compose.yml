@@ -67,16 +67,6 @@ services:
       - ka-network
       - ka-proxy-network
     restart: unless-stopped
-    healthcheck:
-      test:
-        [
-          "CMD-SHELL",
-          "wget -q --spider http://localhost:8080/realms/master || exit 1",
-        ]
-      interval: 30s
-      timeout: 10s
-      retries: 5
-      start_period: 60s
 
   # =====================
   # BACKEND (Spring Boot)
@@ -91,8 +81,6 @@ services:
     depends_on:
       java-base-builder:
         condition: service_completed_successfully
-      keycloak:
-        condition: service_healthy
     networks:
       - ka-network
       - ka-proxy-network
@@ -108,9 +96,6 @@ services:
       KEYCLOAK_TOKEN_URL: ${KEYCLOAK_TOKEN_URL}
     env_file:
       - ./ka-smtp-gateway/.env.prod
-    depends_on:
-      keycloak:
-        condition: service_healthy
     networks:
       - ka-network
 
@@ -129,8 +114,6 @@ services:
     depends_on:
       java-base-builder:
         condition: service_completed_successfully
-      keycloak:
-        condition: service_healthy
     networks:
       - ka-network
       - ka-proxy-network
