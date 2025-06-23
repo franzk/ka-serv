@@ -1,0 +1,17 @@
+spring:
+  mail:
+    host: ${SMTP_HOST:localhost}
+    port: ${SMTP_PORT:1026}
+    username: ${SMTP_USERNAME:ka}
+    password: ${SMTP_PASSWORD}
+    properties:
+      mail.smtp.auth: ${SMTP_AUTH:false}
+      mail.smtp.ssl.enable: ${SMTP_SSL:false}
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${KEYCLOAK_ISSUER:http://host.docker.internal:5028/realms/kaserv}
+server:
+  port: 5030

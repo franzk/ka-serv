@@ -1,0 +1,58 @@
+name: Deploy to VPS
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Build and deploy to production server
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🛠️ Generate keycloak/.env.prod from secrets
+        run: |
+          mkdir -p keycloak
+          echo "KC_BOOTSTRAP_ADMIN_USERNAME=${{ secrets.KC_BOOTSTRAP_ADMIN_USERNAME }}" > keycloak/.env.prod
+          echo "KC_BOOTSTRAP_ADMIN_PASSWORD=${{ secrets.KC_BOOTSTRAP_ADMIN_PASSWORD }}" >> keycloak/.env.prod
+          echo "KEYCLOAK_HOSTNAME=${{ secrets.KEYCLOAK_HOSTNAME }}" >> keycloak/.env.prod
+
+      - name: 🛠️ Generate ka-mailer/.env from secrets
+        run: |
+          mkdir -p ka-mailer
+          echo "SMTP_HOST=${{ secrets.SMTP_HOST }}" > ka-mailer/.env
+          echo "SMTP_PORT=${{ secrets.SMTP_PORT }}" >> ka-mailer/.env
+          echo "SMTP_USERNAME=${{ secrets.SMTP_USERNAME }}" >> ka-mailer/.env
+          echo "SMTP_PASSWORD=${{ secrets.SMTP_PASSWORD }}" >> ka-mailer/.env
+
+      - name: 🛠️ Generate .env at project root from secrets
+        run: |
+          echo "KEYCLOAK_URL=${{ secrets.KEYCLOAK_URL }}" > .env
+          echo "KEYCLOAK_ISSUER=${{ secrets.KEYCLOAK_ISSUER }}" >> .env
+          echo "KEYCLOAK_TOKEN_URL=${{ secrets.KEYCLOAK_TOKEN_URL }}" >> .env
+
+      - name: 🚀 Upload project to VPS
+        uses: appleboy/scp-action@v0.1.5
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          source: "."
+          target: "/home/${{ secrets.VPS_USER }}/ka-serv"
+          rm: true
+
+      - name: 🔧 Run deployment script on VPS
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            cd /home/${{ secrets.VPS_USER }}/ka-serv
+            chmod +x deploy.sh
+            ./deploy.sh

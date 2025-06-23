@@ -1,0 +1,23 @@
+meta {
+  name: token
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:5028/realms/kaserv/protocol/openid-connect/token
+  body: formUrlEncoded
+  auth: inherit
+}
+
+body:form-urlencoded {
+  client_id: kaserv-front
+  username: aaa
+  password: aaa
+  grant_type: password
+}
+
+script:post-response {
+  const token = res.body.access_token;
+  bru.setEnvVar('login_token', token);
+}

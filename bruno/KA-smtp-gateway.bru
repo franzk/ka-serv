@@ -1,0 +1,22 @@
+meta {
+  name: KA-smtp-gateway
+  type: http
+  seq: 5
+}
+
+post {
+  url: http://localhost:5028/realms/kaserv/protocol/openid-connect/token
+  body: formUrlEncoded
+  auth: inherit
+}
+
+body:form-urlencoded {
+  client_id: ka-smtp-gateway-client
+  client_secret: sZFEy3ecshZInSr26MOrqm4cOeUoOp9Y
+  grant_type: client_credentials
+}
+
+script:post-response {
+  const token = res.body.access_token;
+  bru.setEnvVar('mailer_token',token);
+}
