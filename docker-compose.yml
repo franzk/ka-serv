@@ -18,9 +18,6 @@ services:
         VITE_KEYCLOAK_URL: ${KEYCLOAK_URL}
     env_file:
       - ./ka-front/.env.prod
-    depends_on:
-      keycloak:
-        condition: service_healthy
     networks:
       - ka-network
       - ka-proxy-network
