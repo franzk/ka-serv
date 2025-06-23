@@ -2,11 +2,11 @@ spring:
   mail:
     host: ${SMTP_HOST:localhost}
     port: ${SMTP_PORT:1026}
-    username: ${SMTP_USERNAME}
+    username: ${SMTP_USERNAME:ka}
     password: ${SMTP_PASSWORD}
     properties:
-      mail.smtp.auth: true
-      mail.smtp.ssl.enable: true
+      mail.smtp.auth: ${SMTP_AUTH:false}
+      mail.smtp.ssl.enable: ${SMTP_SSL:false}
 
   security:
     oauth2:

@@ -9,15 +9,15 @@ services:
     volumes:
       - keycloak_pgdata:/var/lib/postgresql/data
     networks:
-      - kaserv-dev-net
+      - ka-dev-net
 
   ka-keycloak:
+    image: quay.io/keycloak/keycloak:26.2
     container_name: ka-keycloak
-    build: ../keycloak
     command: ["start-dev", "--import-realm"]
     environment:
-      KEYCLOAK_ADMIN: admin
-      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_BOOTSTRAP_ADMIN_USERNAME: admin
+      KC_BOOTSTRAP_ADMIN_PASSWORD: admin
       KC_DB: postgres
       KC_DB_URL: jdbc:postgresql://ka-keycloak-db:5432/keycloak
       KC_DB_USERNAME: keycloak
@@ -30,7 +30,7 @@ services:
       - ../keycloak/:/opt/keycloak/data/import
       - ../keycloak/theme:/opt/keycloak/themes/ka-theme
     networks:
-      - kaserv-dev-net
+      - ka-dev-net
 
   ka-smtp-gateway:
     container_name: ka-smtp-gateway
@@ -39,7 +39,7 @@ services:
     env_file:
       - ../ka-smtp-gateway/.env
     networks:
-      - kaserv-dev-net
+      - ka-dev-net
 
   ka-mailhog:
     image: mailhog/mailhog:v1.0.1
@@ -47,11 +47,9 @@ services:
     ports:
       - "1026:1025" # SMTP
       - "5125:8025" # Web UI
-    networks:
-      - kaserv-dev-net
 
 networks:
-  kaserv-dev-net:
+  ka-dev-net:
     driver: bridge
 
 volumes:
