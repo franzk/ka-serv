@@ -138,6 +138,8 @@ Configure these secrets in your GitHub repository settings (`Settings` > `Secret
 | `SSH_USER` | SSH username     | `deploy`                              |
 | `SSH_KEY`  | SSH private key  | `-----BEGIN OPENSSH PRIVATE KEY-----` |
 
+You can use `./deploy/setup_ssh_user.sh` to create a user and a ssh key on your server.
+
 #### Keycloak Configuration
 
 | Secret                        | Description            |
