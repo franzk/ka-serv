@@ -148,12 +148,14 @@ Configure these secrets in your GitHub repository settings (`Settings` > `Secret
 
 #### Email Configuration
 
-| Secret          | Description    | Notes                                      |
-| --------------- | -------------- | ------------------------------------------ |
-| `SMTP_HOST`     | SMTP server    | e.g., `smtp.gmail.com`, `smtp.outlook.com` |
-| `SMTP_PORT`     | SMTP port      | Usually `465` (SSL)                        |
-| `SMTP_USERNAME` | Email address  | Sender email address                       |
-| `SMTP_PASSWORD` | Email password | Password for the SMTP account              |
+| Secret          | Description        | Notes                                                  |
+| --------------- | ------------------ | ------------------------------------------------------ |
+| `SMTP_HOST`     | SMTP server        | e.g., `smtp.gmail.com`, `smtp.outlook.com`             |
+| `SMTP_PORT`     | SMTP port          | Usually `465` (SSL)                                    |
+| `SMTP_USERNAME` | Email address      | Sender email address                                   |
+| `SMTP_PASSWORD` | Email password     | Password for the SMTP account                          |
+| `SMTP_AUTH`     | Use authentication | Set to true if the SMTP server requires authentication |
+| `SMTP_SSL`      | Enable SSL/TLS     | Set to true to use a secure SSL/TLS connection         |
 
 ### Deployment Triggers
 

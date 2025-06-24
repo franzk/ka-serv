@@ -29,6 +29,8 @@ jobs:
           echo "SMTP_PORT=${{ secrets.SMTP_PORT }}" >> ka-mailer/.env
           echo "SMTP_USERNAME=${{ secrets.SMTP_USERNAME }}" >> ka-mailer/.env
           echo "SMTP_PASSWORD=${{ secrets.SMTP_PASSWORD }}" >> ka-mailer/.env
+          echo "SMTP_AUTH"=${{ secrets.SMTP_AUTH }}" >> ka-mailer/.env
+          echo "SMTP_SSL=${{ secrets.SMTP_SSL }}" >> ka-mailer/.
 
       - name: 🛠️ Generate .env at project root from secrets
         run: |
