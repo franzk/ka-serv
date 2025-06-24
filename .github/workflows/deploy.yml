@@ -1,9 +1,6 @@
-name: Deploy to VPS
+name: Deploy to Server
 
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
 
 jobs:
@@ -14,6 +11,45 @@ jobs:
     steps:
       - name: 📥 Checkout repository
         uses: actions/checkout@v4
+
+      - name: ✅ Validate required secrets
+        run: |
+          missing=false
+
+          # Fonction pour vérifier un secret
+          check_secret() {
+            local name=$1
+            local value=$2
+            if [ -z "$value" ]; then
+              echo "❌ Missing required secret: $name"
+              return 1
+            else
+              echo "✅ Secret $name is present"
+              return 0
+            fi
+          }
+
+          # Vérifier tous les secrets requis
+          check_secret "KC_BOOTSTRAP_ADMIN_USERNAME" "${{ secrets.KC_BOOTSTRAP_ADMIN_USERNAME }}" || missing=true
+          check_secret "KC_BOOTSTRAP_ADMIN_PASSWORD" "${{ secrets.KC_BOOTSTRAP_ADMIN_PASSWORD }}" || missing=true
+          check_secret "KEYCLOAK_HOSTNAME" "${{ secrets.KEYCLOAK_HOSTNAME }}" || missing=true
+          check_secret "KEYCLOAK_REALM" "${{ secrets.KEYCLOAK_REALM }}" || missing=true
+          check_secret "SMTP_HOST" "${{ secrets.SMTP_HOST }}" || missing=true
+          check_secret "SMTP_PORT" "${{ secrets.SMTP_PORT }}" || missing=true
+          check_secret "SMTP_USERNAME" "${{ secrets.SMTP_USERNAME }}" || missing=true
+          check_secret "SMTP_PASSWORD" "${{ secrets.SMTP_PASSWORD }}" || missing=true
+          check_secret "SMTP_AUTH" "${{ secrets.SMTP_AUTH }}" || missing=true
+          check_secret "SMTP_SSL" "${{ secrets.SMTP_SSL }}" || missing=true
+          check_secret "SSH_HOST" "${{ secrets.SSH_HOST }}" || missing=true
+          check_secret "SSH_USER" "${{ secrets.SSH_USER }}" || missing=true
+          check_secret "SSH_KEY" "${{ secrets.SSH_KEY }}" || missing=true
+
+          if [ "$missing" = true ]; then
+            echo "🚨 One or more required secrets are missing. Aborting."
+            exit 1
+          else
+            echo "🎉 All required secrets are present."
+          fi
 
       - name: 🛠️ Generate keycloak/.env.prod from secrets
         run: |
@@ -29,30 +65,32 @@ jobs:
           echo "SMTP_PORT=${{ secrets.SMTP_PORT }}" >> ka-mailer/.env
           echo "SMTP_USERNAME=${{ secrets.SMTP_USERNAME }}" >> ka-mailer/.env
           echo "SMTP_PASSWORD=${{ secrets.SMTP_PASSWORD }}" >> ka-mailer/.env
+          echo "SMTP_AUTH=${{ secrets.SMTP_AUTH }}" >> ka-mailer/.env
+          echo "SMTP_SSL=${{ secrets.SMTP_SSL }}" >> ka-mailer/.env
 
       - name: 🛠️ Generate .env at project root from secrets
         run: |
-          echo "KEYCLOAK_URL=${{ secrets.KEYCLOAK_URL }}" > .env
-          echo "KEYCLOAK_ISSUER=${{ secrets.KEYCLOAK_ISSUER }}" >> .env
-          echo "KEYCLOAK_TOKEN_URL=${{ secrets.KEYCLOAK_TOKEN_URL }}" >> .env
+          echo "KEYCLOAK_URL=${{ secrets.KEYCLOAK_HOSTNAME }}" > .env
+          echo "KEYCLOAK_ISSUER=${{ secrets.KEYCLOAK_HOSTNAME }}/realms/${{ secrets.KEYCLOAK_REALM }}" >> .env
+          echo "KEYCLOAK_TOKEN_URL=${{ secrets.KEYCLOAK_HOSTNAME }}/realms/${{ secrets.KEYCLOAK_REALM }}/protocol/openid-connect/token" >> .env
 
-      - name: 🚀 Upload project to VPS
+      - name: 🚀 Upload project to Server
         uses: appleboy/scp-action@v0.1.5
         with:
-          host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USER }}
-          key: ${{ secrets.VPS_SSH_KEY }}
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
           source: "."
-          target: "/home/${{ secrets.VPS_USER }}/ka-serv"
+          target: "/home/${{ secrets.SSH_USER }}/ka-serv"
           rm: true
 
-      - name: 🔧 Run deployment script on VPS
+      - name: 🔧 Run deployment script on Server
         uses: appleboy/ssh-action@v1.0.0
         with:
-          host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USER }}
-          key: ${{ secrets.VPS_SSH_KEY }}
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
           script: |
-            cd /home/${{ secrets.VPS_USER }}/ka-serv
+            cd /home/${{ secrets.SSH_USER }}/ka-serv
             chmod +x deploy.sh
             ./deploy.sh

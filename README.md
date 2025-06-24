@@ -132,28 +132,33 @@ Configure these secrets in your GitHub repository settings (`Settings` > `Secret
 
 #### Authentication & Infrastructure
 
-| Secret        | Description      | Example                               |
-| ------------- | ---------------- | ------------------------------------- |
-| `VPS_HOST`    | Server IP/domain | `192.168.1.100` or `your-server.com`  |
-| `VPS_USER`    | SSH username     | `deploy`                              |
-| `VPS_SSH_KEY` | SSH private key  | `-----BEGIN OPENSSH PRIVATE KEY-----` |
+| Secret     | Description      | Example                               |
+| ---------- | ---------------- | ------------------------------------- |
+| `SSH_HOST` | Server IP/domain | `192.168.1.100` or `your-server.com`  |
+| `SSH_USER` | SSH username     | `deploy`                              |
+| `SSH_KEY`  | SSH private key  | `-----BEGIN OPENSSH PRIVATE KEY-----` |
+
+You can use `./deploy/setup_ssh_user.sh` to create a user and a ssh key on your server.
 
 #### Keycloak Configuration
 
-| Secret                        | Description            |
-| ----------------------------- | ---------------------- |
-| `KC_BOOTSTRAP_ADMIN_USERNAME` | Initial admin username |
-| `KC_BOOTSTRAP_ADMIN_PASSWORD` | Initial admin password |
-| `KEYCLOAK_HOSTNAME`           | Public Keycloak URL    |
+| Secret                        | Description                        |
+| ----------------------------- | ---------------------------------- |
+| `KC_BOOTSTRAP_ADMIN_USERNAME` | Initial admin username             |
+| `KC_BOOTSTRAP_ADMIN_PASSWORD` | Initial admin password             |
+| `KEYCLOAK_HOSTNAME`           | Public Keycloak URL                |
+| `KEYCLOAK_REALM`              | Realm name used for authentication |
 
 #### Email Configuration
 
-| Secret          | Description    | Notes                                      |
-| --------------- | -------------- | ------------------------------------------ |
-| `SMTP_HOST`     | SMTP server    | e.g., `smtp.gmail.com`, `smtp.outlook.com` |
-| `SMTP_PORT`     | SMTP port      | Usually `465` (SSL)                        |
-| `SMTP_USERNAME` | Email address  | Sender email address                       |
-| `SMTP_PASSWORD` | Email password | Password for the SMTP account              |
+| Secret          | Description        | Notes                                                  |
+| --------------- | ------------------ | ------------------------------------------------------ |
+| `SMTP_HOST`     | SMTP server        | e.g., `smtp.gmail.com`, `smtp.outlook.com`             |
+| `SMTP_PORT`     | SMTP port          | Usually `465` (SSL)                                    |
+| `SMTP_USERNAME` | Email address      | Sender email address                                   |
+| `SMTP_PASSWORD` | Email password     | Password for the SMTP account                          |
+| `SMTP_AUTH`     | Use authentication | Set to true if the SMTP server requires authentication |
+| `SMTP_SSL`      | Enable SSL/TLS     | Set to true to use a secure SSL/TLS connection         |
 
 ### Deployment Triggers
 
