@@ -51,10 +51,10 @@ jobs:
       - name: 🔧 Run deployment script on VPS
         uses: appleboy/ssh-action@v1.0.0
         with:
-          host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USER }}
-          key: ${{ secrets.VPS_SSH_KEY }}
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
           script: |
-            cd /home/${{ secrets.VPS_USER }}/ka-serv
+            cd /home/${{ secrets.SSH_USER }}/ka-serv
             chmod +x deploy.sh
             ./deploy.sh

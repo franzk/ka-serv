@@ -132,11 +132,11 @@ Configure these secrets in your GitHub repository settings (`Settings` > `Secret
 
 #### Authentication & Infrastructure
 
-| Secret        | Description      | Example                               |
-| ------------- | ---------------- | ------------------------------------- |
-| `VPS_HOST`    | Server IP/domain | `192.168.1.100` or `your-server.com`  |
-| `VPS_USER`    | SSH username     | `deploy`                              |
-| `VPS_SSH_KEY` | SSH private key  | `-----BEGIN OPENSSH PRIVATE KEY-----` |
+| Secret     | Description      | Example                               |
+| ---------- | ---------------- | ------------------------------------- |
+| `SSH_HOST` | Server IP/domain | `192.168.1.100` or `your-server.com`  |
+| `SSH_USER` | SSH username     | `deploy`                              |
+| `SSH_KEY`  | SSH private key  | `-----BEGIN OPENSSH PRIVATE KEY-----` |
 
 #### Keycloak Configuration
 
