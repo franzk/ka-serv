@@ -18,6 +18,8 @@ services:
         VITE_KEYCLOAK_URL: ${KEYCLOAK_URL}
     env_file:
       - ./ka-front/.env.prod
+    depends_on:
+      - backend
     networks:
       - ka-network
       - ka-proxy-network
