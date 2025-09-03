@@ -43,7 +43,7 @@ A full-stack proof of concept (POC) featuring user authentication via Keycloak.
 
 ```bash
 cd dev
-docker-compose up
+docker compose up
 ```
 
 This will spin up Keycloak and the associated PostgreSQL database.
@@ -67,9 +67,19 @@ cd ka-back
 
 Backend is exposed at http://localhost:5027
 
-### 4. Verify Setup
+### 4. Start the Mailer Service (Spring Boot + Gradle)
 
-Visit: http://localhost:5173
+```bash
+cd ka-mailer
+./gradlew bootRun
+```
+
+### 5. Verify Setup
+
+- Visit: http://localhost:5173
+- Create a user
+- Get registration email  with MailHog at http://localhost:5125
+- Confirm email
 
 ---
 
