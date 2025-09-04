@@ -1,13 +1,10 @@
-/* Style de base pour le formulaire */
+/* Base form styling */
 #kc-content {
-	max-width: 500px;
+	max-width: 400px;
 	margin: 0 auto;
-	padding: 20px;
-	background-color: #aaaaaa33;
-	backdrop-filter: blur(1px);
+	padding: 40px 20px;
+	background-color: transparent;
 	color: #fff;
-	border-radius: 10px;
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .card-pf {
@@ -16,22 +13,29 @@
 }
 
 form {
-	font-family: Arial, sans-serif;
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 	display: flex;
 	flex-direction: column;
-	gap: 10px;
+	gap: 30px;
 }
 
 a {
-	color: #fff;
-	text-decoration: underline;
+	color: #ccc;
+	text-decoration: none;
+	transition: color 0.3s ease;
 }
 
-/* Style pour les labels */
-form label {
-	font-weight: bold;
-	margin-bottom: 8px;
+a:hover {
 	color: #fff;
+}
+
+/* Label styling */
+form label {
+	font-weight: 300;
+	margin-bottom: 8px;
+	color: #ccc;
+	font-size: 14px;
+	letter-spacing: 0.5px;
 }
 
 #input-error,
@@ -40,69 +44,93 @@ form label {
 	font-weight: 600;
 }
 
-/* Style pour les champs de texte */
+/* Text input styling */
 form input[type="text"],
 form input[type="password"] {
 	width: 100%;
-	padding: 10px;
-	border: 1px solid #555;
-	border-radius: 5px;
+	padding: 12px 0;
+	border: none;
+	border-bottom: 1px solid #fff;
+	border-radius: 0;
 	font-size: 16px;
-	background-color: #ffffff33;
+	background-color: transparent;
 	color: #fff;
 	box-sizing: border-box;
-	transition: border-color 0.3s, background-color 0.3s;
+	transition: border-bottom-color 0.3s ease;
 }
 
 form input[type="text"]:focus,
 form input[type="password"]:focus {
-	border-color: #007bff;
-	background-color: #555;
+	border-bottom-color: #fff;
 	outline: none;
 }
 
-/* Style pour le bouton de soumission */
+/* Neutralize autofill styles */
+form input[type="text"]:-webkit-autofill,
+form input[type="password"]:-webkit-autofill,
+form input[type="text"]:-webkit-autofill:hover,
+form input[type="password"]:-webkit-autofill:hover,
+form input[type="text"]:-webkit-autofill:focus,
+form input[type="password"]:-webkit-autofill:focus,
+form input[type="text"]:-webkit-autofill:active,
+form input[type="password"]:-webkit-autofill:active {
+	-webkit-box-shadow: 0 0 0px 1000px #111 inset !important;
+	-webkit-text-fill-color: #fff !important;
+	background-color: transparent !important;
+	background-image: none !important;
+	border: none !important;
+	border-bottom: 1px solid #fff !important;
+	border-radius: 0 !important;
+	transition: background-color 5000s ease-in-out 0s !important;
+}
+
+/* Submit button styling */
 form input[type="submit"] {
 	width: 100%;
-	padding: 10px;
-	background-color: #007bff;
-	color: white;
-	border: none;
-	border-radius: 5px;
+	padding: 12px;
+	background-color: transparent !important;
+	color: #fff;
+	border: 1px solid #fff;
+	border-radius: 0;
 	font-size: 16px;
+	font-weight: 300;
+	letter-spacing: 1px;
 	cursor: pointer;
-	transition: background-color 0.3s;
+	transition: all 0.3s ease;
+	margin-top: 20px;
 }
 
 form input[type="submit"]:hover {
-	background-color: #0056b3;
+	background-color: rgba(255, 255, 255, 0.1) !important;
+	border-color: #fff;
+	color: #fff;
 }
 
-/* Style pour le bouton "Show password" */
+/* "Show password" button styling */
 form button[type="button"] {
 	background: none !important;
 	border: none;
 	cursor: pointer;
 	position: absolute;
-	right: 0.3rem;
-	top: 0.3rem;
-	bottom: 0.3rem;
-	font-size: 16px;
-	color: #007bff;
+	right: 0;
+	top: 50%;
+	transform: translateY(-50%);
+	font-size: 14px;
+	color: #ccc;
 	padding: 0.2rem 0.4rem;
 }
 
 form button[type="button"]:hover {
-	color: #0056b3;
+	color: #fff;
 }
 
-/* Style pour les icônes */
+/* Icon styling */
 form i {
 	font-size: 18px;
 }
 
-/* Style pour l'alignement des éléments à l'intérieur du formulaire */
-form . {
+/* Form element alignment styling */
+.pf-c-input-group {
 	position: relative;
 }
 
@@ -120,17 +148,21 @@ form . {
 #kc-page-title {
 	color: white;
 	text-align: center;
+	font-weight: 300;
+	font-size: 24px;
+	letter-spacing: 1px;
+	margin-bottom: 40px;
 }
 
 #kc-info {
 	text-align: center;
 }
 
-/* Style de fond pour la page */
+/* Page background styling */
 body {
-	background-color: #242424;
+	background-color: #111;
 	margin: 0;
-	font-family: Arial, sans-serif;
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 	display: flex;
 	flex-direction: column;
 	height: 100vh;
@@ -191,8 +223,10 @@ body {
 }
 
 .pf-c-form-control[aria-invalid="true"] {
-	border: 1px solid red !important;
-	background: none;
+	border: none !important;
+	border-bottom: 1px solid red !important;
+	background: transparent !important;
+	border-radius: 0 !important;
 }
 
 .login-pf-page .login-pf-signup {
@@ -207,6 +241,9 @@ body {
 	flex: 1;
 	padding: 0;
 	margin: 0;
+	overflow-y: auto;
+    height: 100vh;
+	align-content: center;
 }
 
 .login-pf-page {
@@ -226,7 +263,7 @@ body {
 
 .login-pf,
 .login-pf body {
-	background: #242424;
+	background: #111;
 	height: 100%;
 	margin: 0;
 }
@@ -234,7 +271,7 @@ body {
 .pf-c-alert {
 	display: flex;
 	align-items: center;
-	background-color: #ffaa0033;
+	background-color: transparent;
 	border-left: 4px solid #ffaa00;
 	padding: 10px;
 	border-radius: 5px;
@@ -257,3 +294,5 @@ body {
 	text-align: center;
 	margin-bottom: 15px;
 }
+
+
