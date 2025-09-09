@@ -1,10 +1,16 @@
 <template>
   <header class="app-header">
-    <h2 @click="goHome">KA</h2>
-    <div class="user-info">
-      <span class="user-name"
-        ><RouterLink to="/me">👤 {{ authStore.me?.name }}</RouterLink></span
-      >
+    <h2 @click="goHome">
+      <img src="@/assets/images/ka-logo.svg" alt="KA Logo" />
+    </h2>
+    <div class="user-actions">
+      <RouterLink to="/me">
+        <div class="user-name">
+          <span class="user-icon"><UserIcon /></span>
+          <span>{{ authStore.me?.name }}</span>
+        </div>
+      </RouterLink>
+
       <span class="logout-button">
         <button @click="logout">Logout</button>
       </span>
@@ -13,15 +19,17 @@
 </template>
 
 <script setup lang="ts">
+import UserIcon from '@/assets/images/UserIcon.vue'
 import { useAuthStore } from '@/store/authStore'
 import { useRouter } from 'vue-router'
 
+// logout
 const authStore = useAuthStore()
-
 const logout = () => {
   authStore.logout()
 }
 
+// home
 const router = useRouter()
 const goHome = () => {
   router.push('/')
@@ -29,64 +37,78 @@ const goHome = () => {
 </script>
 
 <style scoped lang="scss">
+$header-background-color: #1a1a1a;
+$header-border-color: #333;
+
 .app-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #1e1e2f;
-  padding: 1rem 2rem;
-  border-bottom: 1px solid #2a2a3b;
+  background-color: $header-background-color;
+  padding: $spacing-m $spacing-xl;
+  border-bottom: $border-width-s solid $header-border-color;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-  color: #f1f1f1;
+  color: $color-primary;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 0.875rem;
 }
 
-.app-header h2 {
+h2 {
   cursor: pointer;
-  font-size: 1.4rem;
-  color: #66d9ef;
   transition: color 0.2s ease;
+  margin: 0;
+
+  img {
+    height: 1.5rem;
+    vertical-align: middle;
+  }
 }
 
-.app-header h2:hover {
-  color: #a6e3e9;
-}
-
-.user-info {
+.user-actions {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  background: #2a2a3b;
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
+  gap: $spacing-l;
+
+  a {
+    text-decoration: none;
+    font-weight: 300;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: $color-accent;
+    }
+  }
 }
 
-.user-name a {
-  color: #dcdcdc;
-  text-decoration: none;
-  font-weight: 500;
-  transition:
-    color 0.2s ease,
-    text-shadow 0.2s ease;
-}
+.user-name {
+  display: flex;
+  align-items: center;
+  gap: $spacing-s;
 
-.user-name a:hover {
-  color: #ffffff;
-  text-shadow: 0 0 4px #66d9ef;
+  .user-icon {
+    display: flex;
+    align-items: center;
+
+    svg {
+      height: 1.5rem;
+      width: 1.5rem;
+    }
+  }
 }
 
 .logout-button button {
-  background-color: #ff5c5c;
-  color: #fff;
-  border: none;
-  padding: 0.4rem 0.8rem;
-  border-radius: 6px;
-  font-weight: bold;
+  background-color: transparent;
+  border: $border-width-s solid $color-accent;
+  border-radius: 0;
+  padding: $spacing-s $spacing-m;
+  font-size: inherit;
+  font-weight: 300;
+  letter-spacing: 0.0625rem;
   cursor: pointer;
-  transition: background-color 0.2s ease;
-}
+  transition: all 0.3s ease;
 
-.logout-button button:hover {
-  background-color: #ff1e1e;
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
 }
 </style>
