@@ -98,7 +98,8 @@ h2 {
 
 .logout-button button {
   background-color: transparent;
-  border: $border-width-s solid $color-accent;
+  color: $color-primary;
+  border: $border-width-s solid $color-primary;
   border-radius: 0;
   padding: $spacing-s $spacing-m;
   font-size: inherit;
@@ -109,6 +110,8 @@ h2 {
 
   &:hover {
     background-color: rgba(255, 255, 255, 0.1);
+    border-color: $color-accent;
+    color: $color-accent;
   }
 }
 </style>
