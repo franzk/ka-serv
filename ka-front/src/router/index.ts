@@ -1,9 +1,9 @@
 import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
-import Something from '@/views/Something.vue'
+import SomethingView from '@/views/SomethingView.vue'
 import Me from '@/views/Me.vue'
 
 const routes: Array<RouteRecordRaw> = [
-  { path: '/', component: Something, name: 'something' },
+  { path: '/', component: SomethingView, name: 'something' },
   { path: '/me', component: Me, name: 'me' },
 ]
 

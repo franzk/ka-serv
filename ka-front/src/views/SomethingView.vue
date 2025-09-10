@@ -1,12 +1,15 @@
 <template>
-  <div class="something">
-    <p>{{ something?.date }}</p>
-    <p>{{ something?.message }}</p>
-    <p v-if="error">{{ error }}</p>
+  <div class="something-view">
+    <SimpleCard class="something-card">
+      <p>{{ something?.date }}</p>
+      <p>{{ something?.message }}</p>
+      <p v-if="error">{{ error }}</p>
+    </SimpleCard>
   </div>
 </template>
 
 <script setup lang="ts">
+import SimpleCard from '@/components/SimpleCard.vue'
 import api from '@/config/axios'
 import type { Something } from '@/domain/Something'
 import { ref } from 'vue'
@@ -21,12 +24,19 @@ api
 </script>
 
 <style scoped lang="scss">
-.something {
+.something-view {
   flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  overflow-wrap: break-word;
+  padding: $spacing-xl;
+}
+.something-card {
+  max-width: 400px;
+  p {
+    display: flex;
+    justify-content: center;
+  }
 }
 </style>

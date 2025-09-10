@@ -37,8 +37,8 @@ const goHome = () => {
 </script>
 
 <style scoped lang="scss">
-$header-background-color: #1a1a1a;
-$header-border-color: #333;
+$header-background-color: #1a222d;
+$header-border-color: #2a3647;
 
 .app-header {
   display: flex;
