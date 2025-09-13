@@ -52,10 +52,10 @@
 </head>
 
 <body class="${properties.kcBodyClass!}">
-<header class="login-title app-header">
-    <h1>KA</h1>
-</header>
 <div class="${properties.kcLoginClass!} main-content">
+    <div id="kc-form-image">
+        <img src="${url.resourcesPath}/images/ka-bg.png" />
+    </div>
     <div class="${properties.kcFormCardClass!}">
         <header class="${properties.kcFormHeaderClass!}">
             <#if realm.internationalizationEnabled  && locale.supported?size gt 1>
