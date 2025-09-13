@@ -32,30 +32,28 @@ const me = authStore.me
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 32px;
+  padding: $spacing-xxl;
 }
 
 .profile-card {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 32px;
-  gap: 24px;
+  padding: $spacing-xxl;
+  gap: $spacing-xl;
 }
 
 .profile-title {
-  font-size: 2rem;
-  font-weight: 600;
   text-align: center;
-  margin: 0 0 24px 0;
-  color: #e6eef7;
+  margin: 0 0 $spacing-xl 0;
+  color: $color-primary;
   letter-spacing: 0.01em;
 }
 
 .profile-details {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: $spacing-l;
   width: 100%;
 }
 
@@ -64,8 +62,8 @@ const me = authStore.me
   align-items: center;
   justify-content: space-between;
 
-  padding: 14px 18px;
-  border-radius: 12px;
+  padding: $spacing-m $spacing-l;
+  border-radius: $border-radius-m;
 
   background: linear-gradient(
       180deg,
@@ -86,13 +84,12 @@ const me = authStore.me
 }
 
 .detail .label {
-  font-weight: 500;
-  color: #a3b3c5;
+  font-weight: 600;
+  color: $color-primary;
 }
 
 .detail .value {
-  font-weight: 600;
-  color: #e6eef7;
+  color: $color-accent;
 }
 
 </style>

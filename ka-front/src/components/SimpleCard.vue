@@ -15,19 +15,8 @@ $color-card-background: #222;
 .card {
   display: flex;
   flex-direction: column;
-  /*background-color: $color-card-background;
-  border: $border-width-s solid $border-color;
-  border-radius: $border-radius-m;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  padding: $spacing-l;
-  margin: $spacing-m 0;
-  transition: box-shadow 0.2s ease;
 
-  &:hover {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  }*/
-
-    width: 100%;
+  width: 100%;
   max-width: 480px;
   border-radius: 18px;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02)), #121923;
