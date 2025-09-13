@@ -48,6 +48,8 @@ const me = authStore.me
   margin: 0 0 $spacing-xl 0;
   color: $color-primary;
   letter-spacing: 0.01em;
+  inline-size: 100%;
+  overflow-wrap: break-word;
 }
 
 .profile-details {
@@ -55,12 +57,16 @@ const me = authStore.me
   flex-direction: column;
   gap: $spacing-l;
   width: 100%;
+  inline-size: 100%;
+  overflow-wrap: break-word;
 }
 
 .detail {
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  flex-wrap: wrap;
 
   padding: $spacing-m $spacing-l;
   border-radius: $border-radius-m;
@@ -89,6 +95,10 @@ const me = authStore.me
 }
 
 .detail .value {
+  flex: 1;
+  width: 100%;
+  overflow-wrap: break-word;
+  text-align: right;
   color: $color-accent;
 }
 

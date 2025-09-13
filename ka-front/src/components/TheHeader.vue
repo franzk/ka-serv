@@ -5,16 +5,15 @@
     </h2>
     <div class="user-actions">
       <RouterLink to="/me">
-        <div class="user-name">
+        <div class="user">
           <span class="user-icon"><UserIcon /></span>
-          <span>{{ authStore.me?.name }}</span>
+          <span class="user-name">{{ authStore.me?.name }}</span>
         </div>
       </RouterLink>
-
-      <span class="logout-button">
-        <button @click="logout">Logout</button>
-      </span>
     </div>
+    <span class="logout-button">
+      <button @click="logout">Logout</button>
+    </span>
   </header>
 </template>
 
@@ -44,16 +43,21 @@ $header-border-color: #2a3647;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: $spacing-m;
+
+  position: sticky;
+  top: 0;
+  z-index: 1;
+
   background-color: $header-background-color;
   padding: $spacing-m $spacing-xl;
   border-bottom: $border-width-s solid $header-border-color;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
   color: $color-primary;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  font-size: 0.875rem;
 }
 
 h2 {
+  flex: 1;
   cursor: pointer;
   transition: color 0.2s ease;
   margin: 0;
@@ -66,6 +70,8 @@ h2 {
 
 .user-actions {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: end;
   align-items: center;
   gap: $spacing-l;
 
@@ -80,7 +86,7 @@ h2 {
   }
 }
 
-.user-name {
+.user {
   display: flex;
   align-items: center;
   gap: $spacing-s;
@@ -92,6 +98,12 @@ h2 {
     svg {
       height: 1.5rem;
       width: 1.5rem;
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    .user-name {
+      display: none;
     }
   }
 }
