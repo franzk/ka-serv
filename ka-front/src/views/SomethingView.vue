@@ -45,14 +45,14 @@ api
    justify-content: center;
   font-size: 1.2rem;
   font-weight: 500;
-  padding: 3rem;
+  padding: $spacing-xxl;
 }
 
 .something-date {
   text-align: right;
   font-size: 0.875rem;
   color: #888;
-  padding-right: 1rem;
+  padding-right: $spacing-l;
   margin: 0;
 }
 </style>
