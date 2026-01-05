@@ -3,7 +3,7 @@
 # FROM ka-base-java:latest
 # copy jar file, run it, expose port, etc...
 
-FROM openjdk:21-jdk-slim
+FROM eclipse-temurin:25-jdk
 
 # Install necessary utilities to download the certificate
 RUN apt-get update && apt-get install -y \

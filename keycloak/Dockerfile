@@ -1,5 +1,5 @@
 # Use official Keycloak base image
-FROM quay.io/keycloak/keycloak:26.2
+FROM quay.io/keycloak/keycloak:26.2.2
 
 # Enable production features
 ENV KC_DB=postgres
@@ -19,11 +19,8 @@ COPY ./scripts/start.sh /opt/keycloak/bin/start.sh
 # Switch to root to set permissions and install scripts
 USER root
 
-# Make script executable
-RUN chmod +x /opt/keycloak/bin/start.sh 
-
-# Build Keycloak with custom configurations
-RUN /opt/keycloak/bin/kc.sh build
+# Make script executable && Build Keycloak with custom configurations
+RUN chmod +x /opt/keycloak/bin/start.sh && /opt/keycloak/bin/kc.sh build
 
 # Switch back to default non-root user
 USER 1000
