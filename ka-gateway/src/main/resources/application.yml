@@ -1,9 +1,24 @@
 server:
-  port: 8080
+  port: 5080
 
 spring:
   cloud:
     gateway:
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins:
+              - ${APP_URL:http://localhost:5173}
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
+            allowedHeaders:
+              - Authorization
+              - Content-Type
+            allowCredentials: true
       server:
         webmvc:
           routes:
@@ -19,5 +34,4 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: ${KEYCLOAK_ISSUER:http://host.docker.internal:5028/realms/kaserv}
-
 
