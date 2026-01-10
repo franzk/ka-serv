@@ -1,34 +1,23 @@
 server:
   port: 5080
 
+logging:
+  level:
+    org.springframework.web.cors: DEBUG
+    org.springframework.cloud.gateway: DEBUG
+
 spring:
   cloud:
     gateway:
-      globalcors:
-        corsConfigurations:
-          '[/**]':
-            allowedOrigins:
-              - ${APP_URL:http://localhost:5173}
-            allowedMethods:
-              - GET
-              - POST
-              - PUT
-              - DELETE
-              - OPTIONS
-            allowedHeaders:
-              - Authorization
-              - Content-Type
-            allowCredentials: true
       server:
         webmvc:
           routes:
-          - id: backend
-            uri: ${BACK_URL:http://localhost:5027}
-            predicates:
-              - Path=/api/**
-            filters:
-              - StripPrefix=1
-
+            - id: backend
+              uri: http://localhost:5027
+              predicates:
+                - Path=/api/**
+              filters:
+                - StripPrefix=1
   security:
     oauth2:
       resourceserver:
