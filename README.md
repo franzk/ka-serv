@@ -92,7 +92,7 @@ cd ka-mailer
 ##### Project root
 
 ```bash
-cp .env.example .env
+cp aaa.env.local.example aaa.env.local
 ```
 
 Then open .env and fill in the required values :
@@ -105,7 +105,7 @@ Then open .env and fill in the required values :
 
 ```bash
 cd keycloak
-cp .env.prod.example .env.prod
+cp aaa.env.local.prod.example aaa.env.local.prod
 ```
 
 Then open .env.prod and fill in the required values:
@@ -118,7 +118,7 @@ Then open .env.prod and fill in the required values:
 
 ```bash
 cd ka-mailer
-cp .env.example .env
+cp aaa.env.local.prod.example aaa.env.local
 ```
 
 Then open .env and fill in the required values:
@@ -193,12 +193,6 @@ You can deploy the project:
 - ✅ Update documentation for API changes
 - ✅ Test in both development and production environments
 - ✅ Keep commits atomic and well-described
-
----
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 

@@ -1,12 +1,9 @@
 server:
   port: 5080
 
-logging:
-  level:
-    org.springframework.web.cors: DEBUG
-    org.springframework.cloud.gateway: DEBUG
-
 spring:
+  application:
+    name: ka-gateway
   cloud:
     gateway:
       server:

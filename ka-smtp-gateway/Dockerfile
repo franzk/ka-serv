@@ -13,7 +13,6 @@ RUN pnpm install --frozen-lockfile
 
 # Copy the rest of the application code
 COPY . .
-COPY .env.prod .env
 
 EXPOSE 1025
 

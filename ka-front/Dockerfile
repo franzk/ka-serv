@@ -11,8 +11,7 @@ COPY package*.json ./
 RUN npm install       
 
 # Copy source files and build the application
-COPY . .              
-COPY .env.prod .env
+COPY . .
 RUN npm run build
 
 # Use Nginx to serve the built application

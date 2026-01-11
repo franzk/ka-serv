@@ -51,14 +51,14 @@ jobs:
             echo "🎉 All required secrets are present."
           fi
 
-      - name: 🛠️ Generate keycloak/.env.prod from secrets
+      - name: 🛠️ Generate keycloak/aaa.env.local.prod from secrets
         run: |
           mkdir -p keycloak
           echo "KC_BOOTSTRAP_ADMIN_USERNAME=${{ secrets.KC_BOOTSTRAP_ADMIN_USERNAME }}" > keycloak/.env.prod
           echo "KC_BOOTSTRAP_ADMIN_PASSWORD=${{ secrets.KC_BOOTSTRAP_ADMIN_PASSWORD }}" >> keycloak/.env.prod
           echo "KEYCLOAK_HOSTNAME=${{ secrets.KEYCLOAK_HOSTNAME }}" >> keycloak/.env.prod
 
-      - name: 🛠️ Generate ka-mailer/.env from secrets
+      - name: 🛠️ Generate ka-mailer/aaa.env.local from secrets
         run: |
           mkdir -p ka-mailer
           echo "SMTP_HOST=${{ secrets.SMTP_HOST }}" > ka-mailer/.env
@@ -68,7 +68,7 @@ jobs:
           echo "SMTP_AUTH=${{ secrets.SMTP_AUTH }}" >> ka-mailer/.env
           echo "SMTP_SSL=${{ secrets.SMTP_SSL }}" >> ka-mailer/.env
 
-      - name: 🛠️ Generate .env at project root from secrets
+      - name: 🛠️ Generate aaa.env.local at project root from secrets
         run: |
           echo "KEYCLOAK_URL=${{ secrets.KEYCLOAK_HOSTNAME }}" > .env
           echo "KEYCLOAK_ISSUER=${{ secrets.KEYCLOAK_HOSTNAME }}/realms/${{ secrets.KEYCLOAK_REALM }}" >> .env

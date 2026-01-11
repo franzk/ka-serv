@@ -34,10 +34,10 @@ services:
 
   ka-smtp-gateway:
     container_name: ka-smtp-gateway
+    environment:
+      - MAILER_URL=http://host.docker.internal:5030/api/v1/mail
     build:
       context: ../ka-smtp-gateway
-    env_file:
-      - ../ka-smtp-gateway/.env
     networks:
       - ka-dev-net
 

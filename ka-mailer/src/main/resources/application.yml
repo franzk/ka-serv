@@ -1,4 +1,7 @@
 spring:
+  application:
+    name: ka-mailer
+
   mail:
     host: ${SMTP_HOST:localhost}
     port: ${SMTP_PORT:1026}

@@ -50,7 +50,7 @@ services:
     build:
       context: ./keycloak
     env_file:
-      - ./keycloak/.env.prod
+      - ./keycloak/aaa.env.local.prod
     environment:
       # Base de données
       KC_DB: postgres
@@ -91,10 +91,8 @@ services:
     container_name: ka-smtp-gateway
     build:
       context: ./ka-smtp-gateway
-    environment:
-      KEYCLOAK_TOKEN_URL: ${KEYCLOAK_TOKEN_URL}
-    env_file:
-      - ./ka-smtp-gateway/.env.prod
+    env_file: # à voir pourquoi ?
+      - ./ka-smtp-gateway/aaa.env.local.prod
     networks:
       - ka-network
 
@@ -106,10 +104,9 @@ services:
       context: ./ka-mailer
     container_name: ka-mailer
     environment:
-      SPRING_APPLICATION_NAME: ka-mailer
-      KEYCLOAK_ISSUER: ${KEYCLOAK_ISSUER}
+      SPRING_APPLICATION_NAME: ka-mailer #pourquoi ?
     env_file:
-      - ./ka-mailer/.env
+      - ./ka-mailer/aaa.env.local #à voir pourquoi ?
     depends_on:
       java-base-builder:
         condition: service_completed_successfully
