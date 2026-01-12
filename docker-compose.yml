@@ -8,18 +8,20 @@ services:
     image: ka-base-java:latest
 
   # =====================
-  # FRONTEND (Vue.js + Nginx)
+  # KA-FRONT (Vue.js + Nginx)
   # =====================
-  frontend:
+  ka-front:
     container_name: ka-front
     build:
       context: ./ka-front
       args:
-        VITE_KEYCLOAK_URL: ${KEYCLOAK_URL}
-    env_file:
-      - ./ka-front/.env.prod
+        VITE_KEYCLOAK_URL: ${VITE_KEYCLOAK_URL}
+        VITE_KEYCLOAK_REALM: ${VITE_KEYCLOAK_REALM}
+        VITE_KEYCLOAK_CLIENT_ID: ${VITE_KEYCLOAK_CLIENT_ID}
+        VITE_API_URL: ${VITE_API_URL}
     depends_on:
-      - backend
+      - ka-gateway
+      - keycloak
     networks:
       - ka-network
       - ka-proxy-network
@@ -33,7 +35,7 @@ services:
     environment:
       POSTGRES_DB: keycloak
       POSTGRES_USER: keycloak
-      POSTGRES_PASSWORD: keycloak
+      POSTGRES_PASSWORD: ${KC_DB_PASSWORD}
     volumes:
       - keycloak_pgdata:/var/lib/postgresql/data
     networks:
@@ -49,14 +51,15 @@ services:
     container_name: ka-keycloak
     build:
       context: ./keycloak
-    env_file:
-      - ./keycloak/aaa.env.local.prod
     environment:
       # Base de données
       KC_DB: postgres
       KC_DB_URL: jdbc:postgresql://keycloak-db:5432/keycloak
       KC_DB_USERNAME: keycloak
-      KC_DB_PASSWORD: keycloak
+      KC_DB_PASSWORD: ${KC_DB_PASSWORD}
+      KC_BOOTSTRAP_ADMIN_USERNAME: ${KC_BOOTSTRAP_ADMIN_USERNAME}
+      KC_BOOTSTRAP_ADMIN_PASSWORD: ${KC_BOOTSTRAP_ADMIN_PASSWORD}
+      KEYCLOAK_HOSTNAME: ${KEYCLOAK_HOSTNAME}
     ports:
       - 8080:8080
     depends_on:
@@ -68,15 +71,15 @@ services:
     restart: unless-stopped
 
   # =====================
-  # BACKEND (Spring Boot)
+  # KA-GATEWAY (Spring Boot)
   # =====================
-  backend:
-    container_name: ka-backend
+  ka-gateway:
+    container_name: ka-gateway
     build:
-      context: ./ka-back
+      context: ./ka-gateway
     environment:
-      SPRING_APPLICATION_NAME: ka-back
       KEYCLOAK_ISSUER: ${KEYCLOAK_ISSUER}
+      BACK_URL: ${BACK_URL}
     depends_on:
       java-base-builder:
         condition: service_completed_successfully
@@ -85,14 +88,29 @@ services:
       - ka-proxy-network
 
   # =====================
+  # KA-BACK (Spring Boot)
+  # =====================
+  ka-back:
+    container_name: ka-back
+    build:
+      context: ./ka-back
+    environment:
+      KEYCLOAK_ISSUER: ${KEYCLOAK_ISSUER}
+    depends_on:
+      java-base-builder:
+        condition: service_completed_successfully
+    networks:
+      - ka-network
+
+  # =====================
   # SMTP Gateway (Node.js)
   # =====================
   ka-smtp-gateway:
     container_name: ka-smtp-gateway
+    environment:
+      MAILER_URL: ${MAILER_URL}
     build:
       context: ./ka-smtp-gateway
-    env_file: # à voir pourquoi ?
-      - ./ka-smtp-gateway/aaa.env.local.prod
     networks:
       - ka-network
 
@@ -104,15 +122,17 @@ services:
       context: ./ka-mailer
     container_name: ka-mailer
     environment:
-      SPRING_APPLICATION_NAME: ka-mailer #pourquoi ?
-    env_file:
-      - ./ka-mailer/aaa.env.local #à voir pourquoi ?
+      SMTP_HOST: ${SMTP_HOST}
+      SMTP_PORT: ${SMTP_PORT}
+      SMTP_USERNAME: ${SMTP_USERNAME}
+      SMTP_PASSWORD: ${SMTP_PASSWORD}
+      SMTP_AUTH: ${SMTP_AUTH}
+      SMTP_SSL: ${SMTP_SSL}
     depends_on:
       java-base-builder:
         condition: service_completed_successfully
     networks:
       - ka-network
-      - ka-proxy-network
 
 volumes:
   keycloak_pgdata:
@@ -120,5 +140,4 @@ volumes:
 networks:
   ka-network:
     name: ka-network
-  ka-proxy-network:
-    external: true
+
