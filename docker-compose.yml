@@ -24,7 +24,6 @@ services:
       - keycloak
     networks:
       - ka-network
-      - ka-proxy-network
 
   # =====================
   # KEYCLOAK (Java + Postgres)
@@ -67,7 +66,6 @@ services:
         condition: service_healthy
     networks:
       - ka-network
-      - ka-proxy-network
     restart: unless-stopped
 
   # =====================
@@ -85,7 +83,6 @@ services:
         condition: service_completed_successfully
     networks:
       - ka-network
-      - ka-proxy-network
 
   # =====================
   # KA-BACK (Spring Boot)
