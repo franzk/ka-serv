@@ -7,7 +7,7 @@ services:
     networks:
       - ka-proxy-network
       - ka-network
-  keycloak:
+  ka-keycloak:
     networks:
       - ka-proxy-network
       - ka-network
