@@ -11,6 +11,7 @@ services:
   # KA-FRONT (Vue.js + Nginx)
   # =====================
   ka-front:
+    image: ka-front:latest
     container_name: ka-front
     build:
       context: ./ka-front
@@ -72,6 +73,7 @@ services:
   # KA-GATEWAY (Spring Boot)
   # =====================
   ka-gateway:
+    image: ka-gateway:latest
     container_name: ka-gateway
     build:
       context: ./ka-gateway
@@ -88,6 +90,7 @@ services:
   # KA-BACK (Spring Boot)
   # =====================
   ka-back:
+    image: ka-back:latest
     container_name: ka-back
     build:
       context: ./ka-back
@@ -103,6 +106,7 @@ services:
   # SMTP Gateway (Node.js)
   # =====================
   ka-smtp-gateway:
+    image: ka-smtp-gateway:latest
     container_name: ka-smtp-gateway
     environment:
       MAILER_URL: ${MAILER_URL}
@@ -115,6 +119,7 @@ services:
   # MAILER (Spring Boot)
   # =====================
   ka-mailer:
+    image: ka-mailer:latest
     build:
       context: ./ka-mailer
     container_name: ka-mailer
