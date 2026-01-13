@@ -1,3 +1,4 @@
+name: ka
 services:
   # =====================
   # Base image for Java (build only)
