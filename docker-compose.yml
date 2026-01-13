@@ -5,13 +5,13 @@ services:
   java-base-builder:
     build:
       context: ./infra/base-java
-    image: ka-base-java:latest
+    image: ka-base-java
 
   # =====================
   # KA-FRONT (Vue.js + Nginx)
   # =====================
   ka-front:
-    image: ka-front:latest
+    image: ka-front
     container_name: ka-front
     build:
       context: ./ka-front
@@ -22,40 +22,41 @@ services:
         VITE_API_URL: ${VITE_API_URL}
     depends_on:
       - ka-gateway
-      - keycloak
+      - ka-keycloak
     networks:
       - ka-network
 
   # =====================
   # KEYCLOAK (Java + Postgres)
   # =====================
-  keycloak-db:
+  ka-keycloak-db:
     image: postgres:17
     container_name: ka-keycloak-db
     environment:
-      POSTGRES_DB: keycloak
-      POSTGRES_USER: keycloak
+      POSTGRES_DB: ka-keycloak
+      POSTGRES_USER: ka-keycloak
       POSTGRES_PASSWORD: ${KC_DB_PASSWORD}
     volumes:
-      - keycloak_pgdata:/var/lib/postgresql/data
+      - ka_keycloak_pgdata:/var/lib/postgresql/data
     networks:
       - ka-network
     restart: unless-stopped
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U keycloak -d keycloak"]
+      test: ["CMD-SHELL", "pg_isready -U ka-keycloak -d ka-keycloak"]
       interval: 10s
       timeout: 5s
       retries: 5
 
-  keycloak:
+  ka-keycloak:
+    image: ka-keycloak
     container_name: ka-keycloak
     build:
       context: ./keycloak
     environment:
       # Base de données
       KC_DB: postgres
-      KC_DB_URL: jdbc:postgresql://keycloak-db:5432/keycloak
-      KC_DB_USERNAME: keycloak
+      KC_DB_URL: jdbc:postgresql://ka-keycloak-db:5432/ka-keycloak
+      KC_DB_USERNAME: ka-keycloak
       KC_DB_PASSWORD: ${KC_DB_PASSWORD}
       KC_BOOTSTRAP_ADMIN_USERNAME: ${KC_BOOTSTRAP_ADMIN_USERNAME}
       KC_BOOTSTRAP_ADMIN_PASSWORD: ${KC_BOOTSTRAP_ADMIN_PASSWORD}
@@ -63,7 +64,7 @@ services:
     ports:
       - 8080:8080
     depends_on:
-      keycloak-db:
+      ka-keycloak-db:
         condition: service_healthy
     networks:
       - ka-network
@@ -73,7 +74,7 @@ services:
   # KA-GATEWAY (Spring Boot)
   # =====================
   ka-gateway:
-    image: ka-gateway:latest
+    image: ka-gateway
     container_name: ka-gateway
     build:
       context: ./ka-gateway
@@ -90,7 +91,7 @@ services:
   # KA-BACK (Spring Boot)
   # =====================
   ka-back:
-    image: ka-back:latest
+    image: ka-back
     container_name: ka-back
     build:
       context: ./ka-back
@@ -106,7 +107,7 @@ services:
   # SMTP Gateway (Node.js)
   # =====================
   ka-smtp-gateway:
-    image: ka-smtp-gateway:latest
+    image: ka-smtp-gateway
     container_name: ka-smtp-gateway
     environment:
       MAILER_URL: ${MAILER_URL}
@@ -119,10 +120,10 @@ services:
   # MAILER (Spring Boot)
   # =====================
   ka-mailer:
-    image: ka-mailer:latest
+    image: ka-mailer
+    container_name: ka-mailer
     build:
       context: ./ka-mailer
-    container_name: ka-mailer
     environment:
       SMTP_HOST: ${SMTP_HOST}
       SMTP_PORT: ${SMTP_PORT}
@@ -137,7 +138,7 @@ services:
       - ka-network
 
 volumes:
-  keycloak_pgdata:
+  ka_keycloak_pgdata:
 
 networks:
   ka-network:
