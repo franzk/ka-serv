@@ -81,6 +81,7 @@ services:
     environment:
       KEYCLOAK_ISSUER: ${KEYCLOAK_ISSUER}
       BACK_URL: ${BACK_URL}
+      APP_URL: ${APP_URL}
     depends_on:
       java-base-builder:
         condition: service_completed_successfully
