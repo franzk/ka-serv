@@ -105,15 +105,15 @@ services:
       - ka-network
 
   # =====================
-  # SMTP Gateway (Node.js)
+  # SMTP Bridge (Node.js)
   # =====================
-  ka-smtp-gateway:
-    image: ka-smtp-gateway
-    container_name: ka-smtp-gateway
+  ka-smtp-bridge:
+    image: ka-smtp-bridge
+    container_name: ka-smtp-bridge
     environment:
       MAILER_URL: ${MAILER_URL}
     build:
-      context: ./ka-smtp-gateway
+      context: ./ka-smtp-bridge
     networks:
       - ka-network
 

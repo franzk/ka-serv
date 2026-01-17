@@ -1,5 +1,5 @@
 {
-  "name": "ka-smtp-gateway",
+  "name": "ka-smtp-bridge",
   "type": "module",
   "scripts": {
     "start": "tsx index.ts",

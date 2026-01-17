@@ -32,12 +32,13 @@ services:
     networks:
       - ka-dev-net
 
-  ka-smtp-gateway:
-    container_name: ka-smtp-gateway
+  ka-smtp-bridge:
+    image: ka-smtp-bridge
+    container_name: ka-smtp-bridge
     environment:
       - MAILER_URL=http://host.docker.internal:5030/api/v1/mail
     build:
-      context: ../ka-smtp-gateway
+      context: ../ka-smtp-bridge
     networks:
       - ka-dev-net
 

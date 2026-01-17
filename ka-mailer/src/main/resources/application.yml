@@ -3,7 +3,7 @@ spring:
     name: ka-mailer
 
   mail:
-    host: ${SMTP_HOST:localhost}
+    host: ${SMTP_HOST:localhost} # mailhog default
     port: ${SMTP_PORT:1026}
     username: ${SMTP_USERNAME:ka}
     password: ${SMTP_PASSWORD}

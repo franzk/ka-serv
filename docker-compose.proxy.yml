@@ -1,3 +1,4 @@
+# Define the networks for the services that need to be connected to the proxy network.
 services:
   ka-front:
     networks:
