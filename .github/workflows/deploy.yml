@@ -8,6 +8,23 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Verify secrets are defined
+        run: |
+          if [ -z "${{ secrets.SSH_HOST }}" ]; then
+            echo "❌ SSH_HOST is not defined"
+            exit 1
+          fi
+          if [ -z "${{ secrets.SSH_USER }}" ]; then
+            echo "❌ SSH_USER is not defined"
+            exit 1
+          fi
+          if [ -z "${{ secrets.SSH_PRIVATE_KEY }}" ]; then
+            echo "❌ SSH_PRIVATE_KEY is not defined"
+            exit 1
+          fi
+          echo "✅ All secrets are defined"
+          echo "Host: ${{ secrets.SSH_HOST }}"
+          echo "User: ${{ secrets.SSH_USER }}"
       - name: Deploy via SSH
         uses: appleboy/ssh-action@v1.0.0
         with:
