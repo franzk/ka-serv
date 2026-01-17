@@ -32,11 +32,12 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
+            set -e
             cd /home/ka-starter
             
             # update code from repo
-            git fetch --all
-            git reset pull
+            git fetch --all --prune
+            git pull --ff-only
             
             # deploy
             ./deploy.sh
