@@ -16,4 +16,10 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd /home/ka-starter
+            
+            # update code from repo
+            git fetch --all
+            git reset pull
+            
+            # deploy
             ./deploy.sh
