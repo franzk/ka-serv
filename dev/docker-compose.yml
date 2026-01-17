@@ -27,8 +27,8 @@ services:
     depends_on:
       - ka-keycloak-db
     volumes:
-      - ../keycloak/:/opt/keycloak/data/import
-      - ../keycloak/theme:/opt/keycloak/themes/ka-theme
+      - ../ka-keycloak/:/opt/keycloak/data/import
+      - ../ka-keycloak/theme:/opt/keycloak/themes/ka-theme
     networks:
       - ka-dev-net
 
