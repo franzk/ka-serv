@@ -5,96 +5,115 @@ services:
   java-base-builder:
     build:
       context: ./infra/base-java
-    image: ka-base-java:latest
+    image: ka-base-java
 
   # =====================
-  # FRONTEND (Vue.js + Nginx)
+  # KA-FRONT (Vue.js + Nginx)
   # =====================
-  frontend:
+  ka-front:
+    image: ka-front
     container_name: ka-front
     build:
       context: ./ka-front
       args:
-        VITE_KEYCLOAK_URL: ${KEYCLOAK_URL}
-    env_file:
-      - ./ka-front/.env.prod
+        VITE_KEYCLOAK_URL: ${VITE_KEYCLOAK_URL}
+        VITE_KEYCLOAK_REALM: ${VITE_KEYCLOAK_REALM}
+        VITE_KEYCLOAK_CLIENT_ID: ${VITE_KEYCLOAK_CLIENT_ID}
+        VITE_API_URL: ${VITE_API_URL}
     depends_on:
-      - backend
+      - ka-gateway
+      - ka-keycloak
     networks:
       - ka-network
-      - ka-proxy-network
 
   # =====================
   # KEYCLOAK (Java + Postgres)
   # =====================
-  keycloak-db:
+  ka-keycloak-db:
     image: postgres:17
     container_name: ka-keycloak-db
     environment:
-      POSTGRES_DB: keycloak
-      POSTGRES_USER: keycloak
-      POSTGRES_PASSWORD: keycloak
+      POSTGRES_DB: ka-keycloak
+      POSTGRES_USER: ka-keycloak
+      POSTGRES_PASSWORD: ${KC_DB_PASSWORD}
     volumes:
-      - keycloak_pgdata:/var/lib/postgresql/data
+      - ka_keycloak_pgdata:/var/lib/postgresql/data
     networks:
       - ka-network
     restart: unless-stopped
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U keycloak -d keycloak"]
+      test: ["CMD-SHELL", "pg_isready -U ka-keycloak -d ka-keycloak"]
       interval: 10s
       timeout: 5s
       retries: 5
 
-  keycloak:
+  ka-keycloak:
+    image: ka-keycloak
     container_name: ka-keycloak
     build:
-      context: ./keycloak
-    env_file:
-      - ./keycloak/.env.prod
+      context: ./ka-keycloak
     environment:
       # Base de données
       KC_DB: postgres
-      KC_DB_URL: jdbc:postgresql://keycloak-db:5432/keycloak
-      KC_DB_USERNAME: keycloak
-      KC_DB_PASSWORD: keycloak
+      KC_DB_URL: jdbc:postgresql://ka-keycloak-db:5432/ka-keycloak
+      KC_DB_USERNAME: ka-keycloak
+      KC_DB_PASSWORD: ${KC_DB_PASSWORD}
+      KC_BOOTSTRAP_ADMIN_USERNAME: ${KC_BOOTSTRAP_ADMIN_USERNAME}
+      KC_BOOTSTRAP_ADMIN_PASSWORD: ${KC_BOOTSTRAP_ADMIN_PASSWORD}
+      KEYCLOAK_HOSTNAME: ${KEYCLOAK_HOSTNAME}
     ports:
       - 8080:8080
     depends_on:
-      keycloak-db:
+      ka-keycloak-db:
         condition: service_healthy
     networks:
       - ka-network
-      - ka-proxy-network
     restart: unless-stopped
 
   # =====================
-  # BACKEND (Spring Boot)
+  # KA-GATEWAY (Spring Boot)
   # =====================
-  backend:
-    container_name: ka-backend
+  ka-gateway:
+    image: ka-gateway
+    container_name: ka-gateway
+    build:
+      context: ./ka-gateway
+    environment:
+      KEYCLOAK_ISSUER: ${KEYCLOAK_ISSUER}
+      BACK_URL: ${BACK_URL}
+      APP_URL: ${APP_URL}
+    depends_on:
+      java-base-builder:
+        condition: service_completed_successfully
+    networks:
+      - ka-network
+
+  # =====================
+  # KA-BACK (Spring Boot)
+  # =====================
+  ka-back:
+    image: ka-back
+    container_name: ka-back
     build:
       context: ./ka-back
     environment:
-      SPRING_APPLICATION_NAME: ka-back
       KEYCLOAK_ISSUER: ${KEYCLOAK_ISSUER}
     depends_on:
       java-base-builder:
         condition: service_completed_successfully
     networks:
       - ka-network
-      - ka-proxy-network
 
   # =====================
-  # SMTP Gateway (Node.js)
+  # SMTP Bridge (Node.js)
   # =====================
-  ka-smtp-gateway:
-    container_name: ka-smtp-gateway
-    build:
-      context: ./ka-smtp-gateway
+  ka-smtp-bridge:
+    image: ka-smtp-bridge
+    container_name: ka-smtp-bridge
     environment:
-      KEYCLOAK_TOKEN_URL: ${KEYCLOAK_TOKEN_URL}
-    env_file:
-      - ./ka-smtp-gateway/.env.prod
+      MAILER_URL: ${MAILER_URL}
+    build:
+      context: ./ka-smtp-bridge
     networks:
       - ka-network
 
@@ -102,26 +121,27 @@ services:
   # MAILER (Spring Boot)
   # =====================
   ka-mailer:
+    image: ka-mailer
+    container_name: ka-mailer
     build:
       context: ./ka-mailer
-    container_name: ka-mailer
     environment:
-      SPRING_APPLICATION_NAME: ka-mailer
-      KEYCLOAK_ISSUER: ${KEYCLOAK_ISSUER}
-    env_file:
-      - ./ka-mailer/.env
+      SMTP_HOST: ${SMTP_HOST}
+      SMTP_PORT: ${SMTP_PORT}
+      SMTP_USERNAME: ${SMTP_USERNAME}
+      SMTP_PASSWORD: ${SMTP_PASSWORD}
+      SMTP_AUTH: ${SMTP_AUTH}
+      SMTP_SSL: ${SMTP_SSL}
     depends_on:
       java-base-builder:
         condition: service_completed_successfully
     networks:
       - ka-network
-      - ka-proxy-network
 
 volumes:
-  keycloak_pgdata:
+  ka_keycloak_pgdata:
 
 networks:
   ka-network:
     name: ka-network
-  ka-proxy-network:
-    external: true
+

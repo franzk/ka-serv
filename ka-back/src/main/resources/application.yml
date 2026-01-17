@@ -1,6 +1,7 @@
 spring:
   application:
         name: ka-back
+
   security:
     oauth2:
       resourceserver:

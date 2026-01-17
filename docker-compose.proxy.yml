@@ -1,0 +1,18 @@
+# Define the networks for the services that need to be connected to the proxy network.
+services:
+  ka-front:
+    networks:
+      - ka-proxy-network
+      - ka-network
+  ka-gateway:
+    networks:
+      - ka-proxy-network
+      - ka-network
+  ka-keycloak:
+    networks:
+      - ka-proxy-network
+      - ka-network
+
+networks:
+  ka-proxy-network:
+    external: true

@@ -1,96 +1,44 @@
-name: Deploy to Server
+name: Deploy ka-serv
 
 on:
   workflow_dispatch:
 
 jobs:
   deploy:
-    name: Build and deploy to production server
     runs-on: ubuntu-latest
 
     steps:
-      - name: 📥 Checkout repository
-        uses: actions/checkout@v4
-
-      - name: ✅ Validate required secrets
+      - name: Verify secrets are defined
         run: |
-          missing=false
-
-          # Fonction pour vérifier un secret
-          check_secret() {
-            local name=$1
-            local value=$2
-            if [ -z "$value" ]; then
-              echo "❌ Missing required secret: $name"
-              return 1
-            else
-              echo "✅ Secret $name is present"
-              return 0
-            fi
-          }
-
-          # Vérifier tous les secrets requis
-          check_secret "KC_BOOTSTRAP_ADMIN_USERNAME" "${{ secrets.KC_BOOTSTRAP_ADMIN_USERNAME }}" || missing=true
-          check_secret "KC_BOOTSTRAP_ADMIN_PASSWORD" "${{ secrets.KC_BOOTSTRAP_ADMIN_PASSWORD }}" || missing=true
-          check_secret "KEYCLOAK_HOSTNAME" "${{ secrets.KEYCLOAK_HOSTNAME }}" || missing=true
-          check_secret "KEYCLOAK_REALM" "${{ secrets.KEYCLOAK_REALM }}" || missing=true
-          check_secret "SMTP_HOST" "${{ secrets.SMTP_HOST }}" || missing=true
-          check_secret "SMTP_PORT" "${{ secrets.SMTP_PORT }}" || missing=true
-          check_secret "SMTP_USERNAME" "${{ secrets.SMTP_USERNAME }}" || missing=true
-          check_secret "SMTP_PASSWORD" "${{ secrets.SMTP_PASSWORD }}" || missing=true
-          check_secret "SMTP_AUTH" "${{ secrets.SMTP_AUTH }}" || missing=true
-          check_secret "SMTP_SSL" "${{ secrets.SMTP_SSL }}" || missing=true
-          check_secret "SSH_HOST" "${{ secrets.SSH_HOST }}" || missing=true
-          check_secret "SSH_USER" "${{ secrets.SSH_USER }}" || missing=true
-          check_secret "SSH_KEY" "${{ secrets.SSH_KEY }}" || missing=true
-
-          if [ "$missing" = true ]; then
-            echo "🚨 One or more required secrets are missing. Aborting."
+          if [ -z "${{ secrets.SSH_HOST }}" ]; then
+            echo "❌ SSH_HOST is not defined"
             exit 1
-          else
-            echo "🎉 All required secrets are present."
           fi
-
-      - name: 🛠️ Generate keycloak/.env.prod from secrets
-        run: |
-          mkdir -p keycloak
-          echo "KC_BOOTSTRAP_ADMIN_USERNAME=${{ secrets.KC_BOOTSTRAP_ADMIN_USERNAME }}" > keycloak/.env.prod
-          echo "KC_BOOTSTRAP_ADMIN_PASSWORD=${{ secrets.KC_BOOTSTRAP_ADMIN_PASSWORD }}" >> keycloak/.env.prod
-          echo "KEYCLOAK_HOSTNAME=${{ secrets.KEYCLOAK_HOSTNAME }}" >> keycloak/.env.prod
-
-      - name: 🛠️ Generate ka-mailer/.env from secrets
-        run: |
-          mkdir -p ka-mailer
-          echo "SMTP_HOST=${{ secrets.SMTP_HOST }}" > ka-mailer/.env
-          echo "SMTP_PORT=${{ secrets.SMTP_PORT }}" >> ka-mailer/.env
-          echo "SMTP_USERNAME=${{ secrets.SMTP_USERNAME }}" >> ka-mailer/.env
-          echo "SMTP_PASSWORD=${{ secrets.SMTP_PASSWORD }}" >> ka-mailer/.env
-          echo "SMTP_AUTH=${{ secrets.SMTP_AUTH }}" >> ka-mailer/.env
-          echo "SMTP_SSL=${{ secrets.SMTP_SSL }}" >> ka-mailer/.env
-
-      - name: 🛠️ Generate .env at project root from secrets
-        run: |
-          echo "KEYCLOAK_URL=${{ secrets.KEYCLOAK_HOSTNAME }}" > .env
-          echo "KEYCLOAK_ISSUER=${{ secrets.KEYCLOAK_HOSTNAME }}/realms/${{ secrets.KEYCLOAK_REALM }}" >> .env
-          echo "KEYCLOAK_TOKEN_URL=${{ secrets.KEYCLOAK_HOSTNAME }}/realms/${{ secrets.KEYCLOAK_REALM }}/protocol/openid-connect/token" >> .env
-
-      - name: 🚀 Upload project to Server
-        uses: appleboy/scp-action@v0.1.5
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_KEY }}
-          source: "."
-          target: "/home/${{ secrets.SSH_USER }}/ka-serv"
-          rm: true
-
-      - name: 🔧 Run deployment script on Server
+          if [ -z "${{ secrets.SSH_USER }}" ]; then
+            echo "❌ SSH_USER is not defined"
+            exit 1
+          fi
+          if [ -z "${{ secrets.SSH_PRIVATE_KEY }}" ]; then
+            echo "❌ SSH_PRIVATE_KEY is not defined"
+            exit 1
+          fi
+          echo "✅ All secrets are defined"
+          echo "Host: ${{ secrets.SSH_HOST }}"
+          echo "User: ${{ secrets.SSH_USER }}"
+      - name: Deploy via SSH
         uses: appleboy/ssh-action@v1.0.0
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_KEY }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd /home/${{ secrets.SSH_USER }}/ka-serv
-            chmod +x deploy.sh
+            set -e
+            cd /home/ka-serv
+            
+            # update code from repo
+            git config --global --add safe.directory /home/ka-serv
+            git fetch --all --prune
+            git pull --ff-only
+            
+            # deploy
             ./deploy.sh

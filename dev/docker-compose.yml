@@ -27,17 +27,18 @@ services:
     depends_on:
       - ka-keycloak-db
     volumes:
-      - ../keycloak/:/opt/keycloak/data/import
-      - ../keycloak/theme:/opt/keycloak/themes/ka-theme
+      - ../ka-keycloak/:/opt/keycloak/data/import
+      - ../ka-keycloak/theme:/opt/keycloak/themes/ka-theme
     networks:
       - ka-dev-net
 
-  ka-smtp-gateway:
-    container_name: ka-smtp-gateway
+  ka-smtp-bridge:
+    image: ka-smtp-bridge
+    container_name: ka-smtp-bridge
+    environment:
+      - MAILER_URL=http://host.docker.internal:5030/api/v1/mail
     build:
-      context: ../ka-smtp-gateway
-    env_file:
-      - ../ka-smtp-gateway/.env
+      context: ../ka-smtp-bridge
     networks:
       - ka-dev-net
 
