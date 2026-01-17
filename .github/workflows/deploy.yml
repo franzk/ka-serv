@@ -1,4 +1,4 @@
-name: Deploy ka-starter
+name: Deploy ka-serv
 
 on:
   workflow_dispatch:
@@ -33,7 +33,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             set -e
-            cd /home/ka-starter
+            cd /home/ka-serv
             
             # update code from repo
             git fetch --all --prune
