@@ -46,6 +46,7 @@ jobs:
             
             git fetch origin --prune
             
+            echo "🔄 Deploying branch: $BRANCH"
             git checkout "$BRANCH" || { echo "❌ Checkout failed for branch: $BRANCH"; exit 1; }
             git pull --ff-only origin "$BRANCH"
             
