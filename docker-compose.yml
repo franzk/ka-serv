@@ -3,9 +3,11 @@ services:
   # Base image for Java (build only)
   # =====================
   java-base-builder:
+    image: ka-base-java
     build:
       context: ./infra/base-java
-    image: ka-base-java
+      args:
+        KEYCLOAK_HOST: ${KEYCLOAK_HOST}
 
   # =====================
   # KA-FRONT (Vue.js + Nginx)
@@ -16,7 +18,7 @@ services:
     build:
       context: ./ka-front
       args:
-        VITE_KEYCLOAK_URL: ${VITE_KEYCLOAK_URL}
+        VITE_KEYCLOAK_URL: ${KEYCLOAK_URL}
         VITE_KEYCLOAK_REALM: ${VITE_KEYCLOAK_REALM}
         VITE_KEYCLOAK_CLIENT_ID: ${VITE_KEYCLOAK_CLIENT_ID}
         VITE_API_URL: ${VITE_API_URL}
@@ -60,7 +62,10 @@ services:
       KC_DB_PASSWORD: ${KC_DB_PASSWORD}
       KC_BOOTSTRAP_ADMIN_USERNAME: ${KC_BOOTSTRAP_ADMIN_USERNAME}
       KC_BOOTSTRAP_ADMIN_PASSWORD: ${KC_BOOTSTRAP_ADMIN_PASSWORD}
-      KEYCLOAK_HOSTNAME: ${KEYCLOAK_HOSTNAME}
+      KC_HOSTNAME: ${KEYCLOAK_HOST}
+      KC_HOSTNAME_ADMIN: ${KEYCLOAK_URL}
+      KC_PROXY: edge
+      KC_HTTP_ENABLED: "true"
     ports:
       - 8080:8080
     depends_on:
