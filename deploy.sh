@@ -6,6 +6,8 @@ ENV_FILE=".env"
 
 # Load .env into the shell (so deploy.sh can read PROXY_NETWORK_NAME, etc.)
 if [[ -f "$ENV_FILE" ]]; then
+  # Normalize line endings (avoid CRLF issues)
+  sed -i 's/\r$//' "$ENV_FILE"
   set -a # Export all variables
   # shellcheck disable=SC1090
   source "$ENV_FILE"
