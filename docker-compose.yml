@@ -51,6 +51,7 @@ services:
 
   ka-keycloak:
     image: ka-keycloak
+    container_name: ka-keycloak
     command: ["start", "--http-enabled=true", "--proxy=edge", "--import-realm"]
     environment:
       # Base de données
