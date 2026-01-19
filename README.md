@@ -10,16 +10,18 @@ A full-stack proof of concept (POC) featuring user authentication via Keycloak.
 
 ### Services Overview
 
-| Service       | Port | Technology   | Description                            |
-|---------------|------|--------------|----------------------------------------|
-| Frontend      | 5173 | Vue 3 + Vite | User interface (SPA)                   |
-| Gateway       | 5080 | Spring Boot  | API Gateway (single entry point)       |
-| Backend       | 5027 | Spring Boot  | REST API and business logic            |
-| Keycloak      | 5028 | Keycloak     | Identity and access management (IAM)   |
-| PostgreSQL    | 5432 | Database     | Keycloak database                      |
-| SMTP Bridge   | 1025 | Node.js      | SMTP → HTTP bridge for Keycloak emails |
-| Mailer        | 5030 | Spring Boot  | Email delivery service (HTTP API)      |
-| MailHog (dev) | 5125 | MailHog      | Dev mailbox UI                         |
+| Service       | Local Port (dev) | Technology   | Description                            |
+|---------------|------------------|--------------|----------------------------------------|
+| Frontend      | 5173             | Vue 3 + Vite | User interface (SPA)                   |
+| Gateway       | 5080             | Spring Boot  | API Gateway (single entry point)       |
+| Backend       | 5027             | Spring Boot  | REST API and business logic            |
+| Keycloak      | 5028             | Keycloak     | Identity and access management (IAM)   |
+| PostgreSQL    | 5432             | Database     | Keycloak database                      |
+| SMTP Bridge   | 1025             | Node.js      | SMTP → HTTP bridge for Keycloak emails |
+| Mailer        | 5030             | Spring Boot  | Email delivery service (HTTP API)      |
+| MailHog (dev) | 5125             | MailHog      | Dev mailbox UI                         |
+
+*Ports are indicative and may differ between local and production environments.*
 
 ### Architecture Flow
 
@@ -94,6 +96,8 @@ cd ka-mailer
 
 ## ▶ Deploying the Project in Production
 
+This deployment process targets a single VPS with Docker and a reverse proxy.
+
 ### Manual deployment
 
 #### 1. Prepare environment variables
@@ -121,11 +125,12 @@ Configure these secrets in your GitHub repository settings
 
 #### Authentication & Infrastructure
 
-| Secret     | Description      | Example                               |
-| ---------- | ---------------- | ------------------------------------- |
-| `SSH_HOST` | Server IP/domain | `192.168.1.100` or `your-server.com`  |
-| `SSH_USER` | SSH username     | `deploy`                              |
-| `SSH_KEY`  | SSH private key  | `-----BEGIN OPENSSH PRIVATE KEY-----` |
+| Secret          | Description          | Example                               |
+|-----------------|----------------------|---------------------------------------|
+| `SSH_HOST`      | Server IP/domain     | `192.168.1.100` or `your-server.com`  |
+| `SSH_USER`      | SSH username         | `deploy`                              |
+| `SSH_KEY`       | SSH private key      | `-----BEGIN OPENSSH PRIVATE KEY-----` |
+| `SSH_HOST_PATH` | location the project | `/home/ka-serv`                       |
 
 You can use `./deploy/setup_ssh_user.sh` to create a user and a ssh key on your server.
 
@@ -133,7 +138,7 @@ You can use `./deploy/setup_ssh_user.sh` to create a user and a ssh key on your 
 
 You can deploy the project:
 
-- **Manual**: GitHub Actions tab → "Deploy to Production"
+- **Manual**: GitHub Actions tab → "Deploy ka-serv"
 
 ## Scope
 
@@ -143,7 +148,8 @@ This project is a technical proof of concept focusing on:
 - Clean separation of concerns
 - Centralized email delivery architecture
 
-It is not intended to be production-ready as-is, but to serve as a reference architecture.
+It is not intended to be a turnkey production solution,
+but rather a solid, production-oriented reference architecture.
 
 ## Contributing
 
