@@ -13,20 +13,13 @@ COPY --chown=1000:1000 ./realm-export.json /opt/keycloak/data/import/realm-expor
 # Copy custom theme
 COPY ./theme /opt/keycloak/themes/ka-theme
 
-# Copy custom start script
-COPY ./scripts/start.sh /opt/keycloak/bin/start.sh
-
 # Switch to root to set permissions and install scripts
 USER root
 
-# Make script executable && Build Keycloak with custom configurations
-RUN chmod +x /opt/keycloak/bin/start.sh && /opt/keycloak/bin/kc.sh build
-
+# Build Keycloak
+RUN /opt/keycloak/bin/kc.sh build
 # Switch back to default non-root user
 USER 1000
 
 # Expose default Keycloak port
 EXPOSE 8080
-
-# Use custom start script as entrypoint
-ENTRYPOINT ["/opt/keycloak/bin/start.sh"]
