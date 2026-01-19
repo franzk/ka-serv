@@ -22,9 +22,14 @@ jobs:
             echo "❌ SSH_PRIVATE_KEY is not defined"
             exit 1
           fi
+          if [ -z "${{ secrets.SSH_HOST_PATH }}" ]; then
+            echo "❌ SSH_HOST_PATH is not defined"
+            exit 1
+          fi
           echo "✅ All secrets are defined"
           echo "Host: ${{ secrets.SSH_HOST }}"
           echo "User: ${{ secrets.SSH_USER }}"
+          echo "Path: ${{ secrets.SSH_HOST_PATH }}"
       - name: Deploy via SSH
         uses: appleboy/ssh-action@v1.0.0
         with:
@@ -33,12 +38,21 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             set -e
-            cd /home/ka-serv
+            cd "${{ secrets.SSH_HOST_PATH }}"
             
             # update code from repo
-            git config --global --add safe.directory /home/ka-serv
-            git fetch --all --prune
-            git pull --ff-only
+            BRANCH="${{ github.ref_name }}"            
+            git config --global --add safe.directory "$PWD"
+            
+            git fetch origin --prune
+            
+            echo "🔄 Deploying branch: $BRANCH"
+            git checkout "$BRANCH" || { echo "❌ Checkout failed for branch: $BRANCH"; exit 1; }
+            git pull --ff-only origin "$BRANCH"
+            
+            git clean -fd -e .env -e .env.*
+            git status -sb
+            git log -1 --oneline
             
             # deploy
             ./deploy.sh

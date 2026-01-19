@@ -2,17 +2,18 @@
 services:
   ka-front:
     networks:
-      - ka-proxy-network
+      - proxy-network
       - ka-network
   ka-gateway:
     networks:
-      - ka-proxy-network
+      - proxy-network
       - ka-network
   ka-keycloak:
     networks:
-      - ka-proxy-network
+      - proxy-network
       - ka-network
 
 networks:
-  ka-proxy-network:
+  proxy-network:
     external: true
+    name: ${PROXY_NETWORK_NAME}

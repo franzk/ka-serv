@@ -3,9 +3,11 @@ services:
   # Base image for Java (build only)
   # =====================
   java-base-builder:
+    image: ka-base-java
     build:
       context: ./infra/base-java
-    image: ka-base-java
+      args:
+        KEYCLOAK_HOST: ${KEYCLOAK_HOST}
 
   # =====================
   # KA-FRONT (Vue.js + Nginx)
@@ -16,7 +18,7 @@ services:
     build:
       context: ./ka-front
       args:
-        VITE_KEYCLOAK_URL: ${VITE_KEYCLOAK_URL}
+        VITE_KEYCLOAK_URL: ${KEYCLOAK_URL}
         VITE_KEYCLOAK_REALM: ${VITE_KEYCLOAK_REALM}
         VITE_KEYCLOAK_CLIENT_ID: ${VITE_KEYCLOAK_CLIENT_ID}
         VITE_API_URL: ${VITE_API_URL}
@@ -52,17 +54,22 @@ services:
     container_name: ka-keycloak
     build:
       context: ./ka-keycloak
+    command: ["start", "--http-enabled=true", "--proxy-headers=xforwarded", "--import-realm"]
     environment:
       # Base de données
       KC_DB: postgres
       KC_DB_URL: jdbc:postgresql://ka-keycloak-db:5432/ka-keycloak
+
       KC_DB_USERNAME: ka-keycloak
       KC_DB_PASSWORD: ${KC_DB_PASSWORD}
+
       KC_BOOTSTRAP_ADMIN_USERNAME: ${KC_BOOTSTRAP_ADMIN_USERNAME}
       KC_BOOTSTRAP_ADMIN_PASSWORD: ${KC_BOOTSTRAP_ADMIN_PASSWORD}
-      KEYCLOAK_HOSTNAME: ${KEYCLOAK_HOSTNAME}
+
+      KC_HOSTNAME: ${KEYCLOAK_URL}
+      KC_HOSTNAME_ADMIN: ${KEYCLOAK_URL}
     ports:
-      - 8080:8080
+      - "8080:8080"
     depends_on:
       ka-keycloak-db:
         condition: service_healthy
