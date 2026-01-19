@@ -52,11 +52,14 @@ services:
   ka-keycloak:
     image: ka-keycloak
     container_name: ka-keycloak
+    build:
+      context: ./ka-keycloak
     command: ["start", "--http-enabled=true", "--proxy=edge", "--import-realm"]
     environment:
       # Base de données
       KC_DB: postgres
       KC_DB_URL: jdbc:postgresql://ka-keycloak-db:5432/ka-keycloak
+
       KC_DB_USERNAME: ka-keycloak
       KC_DB_PASSWORD: ${KC_DB_PASSWORD}
 
@@ -64,12 +67,10 @@ services:
       KC_BOOTSTRAP_ADMIN_PASSWORD: ${KC_BOOTSTRAP_ADMIN_PASSWORD}
 
       KC_HOSTNAME: ${KEYCLOAK_HOST}
-      KC_HOSTNAME_ADMIN: ${KEYCLOAK_URL}
-
-      KC_PROXY: edge
-      KC_HTTP_ENABLED: "true"
+      KC_HOSTNAME_ADMIN: ${KEYCLOAK_HOST}
+      KC_PROXY_HEADERS: xforwarded
     ports:
-      - 8080:8080
+      - "8080:8080"
     depends_on:
       ka-keycloak-db:
         condition: service_healthy
