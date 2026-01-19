@@ -2,10 +2,25 @@
 set -euo pipefail
 
 PROJECT="ka-serv"
-BASE_ARGS=(-p "$PROJECT" -f docker-compose.yml)
+ENV_FILE=".env"
+
+# Load .env into the shell (so deploy.sh can read PROXY_NETWORK_NAME, etc.)
+if [[ -f "$ENV_FILE" ]]; then
+  set -a # Export all variables
+  # shellcheck disable=SC1090
+  source "$ENV_FILE"
+  set +a # Stop exporting all variables
+  echo "✅ Loaded environment variables from $ENV_FILE"
+else
+  echo "❌️ $ENV_FILE not found."
+  exit 1
+fi
+
+# Determine which docker-compose files to use based on PROXY_NETWORK_NAME
+BASE_ARGS=(--env-file "$ENV_FILE" -p "$PROJECT" -f docker-compose.yml)
 
 if [[ -n "${PROXY_NETWORK_NAME:-}" ]]; then
-  echo "🔌 Proxy mode enabled: PROXY_NETWORK_NAME=$PROXY_NETWORK_NAME"
+  echo "Proxy mode enabled: PROXY_NETWORK_NAME=$PROXY_NETWORK_NAME"
   docker network inspect "$PROXY_NETWORK_NAME" >/dev/null 2>&1 || {
     echo "❌ Docker network '$PROXY_NETWORK_NAME' not found"
     exit 1
