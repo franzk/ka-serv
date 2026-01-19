@@ -54,7 +54,7 @@ services:
     container_name: ka-keycloak
     build:
       context: ./ka-keycloak
-    command: ["start", "--http-enabled=true", "--proxy=edge", "--import-realm"]
+    command: ["start", "--http-enabled=true", "--proxy-headers=xforwarded", "--import-realm"]
     environment:
       # Base de données
       KC_DB: postgres
@@ -68,7 +68,6 @@ services:
 
       KC_HOSTNAME: ${KEYCLOAK_HOST}
       KC_HOSTNAME_ADMIN: ${KEYCLOAK_HOST}
-      KC_PROXY_HEADERS: xforwarded
     ports:
       - "8080:8080"
     depends_on:
